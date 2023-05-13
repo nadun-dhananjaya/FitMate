@@ -7,20 +7,24 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		919979EA2A0FE37E0063E377 /* SignIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 919979E92A0FE37E0063E377 /* SignIn.swift */; };
+		919979EC2A0FE5850063E377 /* SplashUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 919979EB2A0FE5850063E377 /* SplashUI.swift */; };
+		919979EE2A0FE9140063E377 /* Test.swift in Sources */ = {isa = PBXBuildFile; fileRef = 919979ED2A0FE9140063E377 /* Test.swift */; };
 		91E948C129C1C839008701B7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91E948C029C1C839008701B7 /* AppDelegate.swift */; };
 		91E948C329C1C839008701B7 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91E948C229C1C839008701B7 /* SceneDelegate.swift */; };
 		91E948C529C1C839008701B7 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91E948C429C1C839008701B7 /* ViewController.swift */; };
-		91E948C829C1C839008701B7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 91E948C629C1C839008701B7 /* Main.storyboard */; };
 		91E948CA29C1C83A008701B7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 91E948C929C1C83A008701B7 /* Assets.xcassets */; };
 		91E948CD29C1C83A008701B7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 91E948CB29C1C83A008701B7 /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		919979E92A0FE37E0063E377 /* SignIn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignIn.swift; sourceTree = "<group>"; };
+		919979EB2A0FE5850063E377 /* SplashUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashUI.swift; sourceTree = "<group>"; };
+		919979ED2A0FE9140063E377 /* Test.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Test.swift; sourceTree = "<group>"; };
 		91E948BD29C1C839008701B7 /* FitMate.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FitMate.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		91E948C029C1C839008701B7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		91E948C229C1C839008701B7 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		91E948C429C1C839008701B7 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		91E948C729C1C839008701B7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		91E948C929C1C83A008701B7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		91E948CC29C1C83A008701B7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		91E948CE29C1C83A008701B7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -37,6 +41,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		919979E82A0FE3550063E377 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				919979E92A0FE37E0063E377 /* SignIn.swift */,
+				919979EB2A0FE5850063E377 /* SplashUI.swift */,
+				919979ED2A0FE9140063E377 /* Test.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		91E948B429C1C839008701B7 = {
 			isa = PBXGroup;
 			children = (
@@ -56,10 +70,10 @@
 		91E948BF29C1C839008701B7 /* FitMate */ = {
 			isa = PBXGroup;
 			children = (
+				919979E82A0FE3550063E377 /* Views */,
 				91E948C029C1C839008701B7 /* AppDelegate.swift */,
 				91E948C229C1C839008701B7 /* SceneDelegate.swift */,
 				91E948C429C1C839008701B7 /* ViewController.swift */,
-				91E948C629C1C839008701B7 /* Main.storyboard */,
 				91E948C929C1C83A008701B7 /* Assets.xcassets */,
 				91E948CB29C1C83A008701B7 /* LaunchScreen.storyboard */,
 				91E948CE29C1C83A008701B7 /* Info.plist */,
@@ -127,7 +141,6 @@
 			files = (
 				91E948CD29C1C83A008701B7 /* LaunchScreen.storyboard in Resources */,
 				91E948CA29C1C83A008701B7 /* Assets.xcassets in Resources */,
-				91E948C829C1C839008701B7 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -140,21 +153,16 @@
 			files = (
 				91E948C529C1C839008701B7 /* ViewController.swift in Sources */,
 				91E948C129C1C839008701B7 /* AppDelegate.swift in Sources */,
+				919979EC2A0FE5850063E377 /* SplashUI.swift in Sources */,
 				91E948C329C1C839008701B7 /* SceneDelegate.swift in Sources */,
+				919979EA2A0FE37E0063E377 /* SignIn.swift in Sources */,
+				919979EE2A0FE9140063E377 /* Test.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		91E948C629C1C839008701B7 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				91E948C729C1C839008701B7 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		91E948CB29C1C83A008701B7 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -292,7 +300,6 @@
 				INFOPLIST_FILE = FitMate/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -320,7 +327,6 @@
 				INFOPLIST_FILE = FitMate/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
