@@ -1,5 +1,5 @@
 //
-//  SignIn.swift
+//  SignUp.swift
 //  FitMate
 //
 //  Created by Nadun Dhananjaya on 2023-05-13.
@@ -7,9 +7,8 @@
 
 import UIKit
 
-class SignIn: UIViewController {
+class SignUp: UIViewController {
 
-   
     // Create a vertical stack view
     var stackView : UIStackView =  {
         let stackView = UIStackView()
@@ -121,7 +120,7 @@ class SignIn: UIViewController {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = .monospacedSystemFont(ofSize: 32, weight: .thin)
-        label.text = "Sign In"
+        label.text = "Sign Up"
         label.textAlignment = .center
         return label
     }()
@@ -137,7 +136,7 @@ class SignIn: UIViewController {
     let btnLogin : UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("Login", for: .normal)
+        button.setTitle("Register", for: .normal)
         button.titleLabel?.font = .systemFont(ofSize: 16, weight: .semibold)
         button.backgroundColor = UIColor(red: 69/255, green: 90/255, blue: 100/255, alpha: 1.0)
         button.layer.cornerRadius = 10
@@ -231,6 +230,5 @@ class SignIn: UIViewController {
 
         // Do any additional setup after loading the view.
     }
-
-
+    
 }

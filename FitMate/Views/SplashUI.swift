@@ -122,8 +122,8 @@ class SplashUI: UIViewController {
 
     
     @objc func getStarted(){
-//        let vc = signup()
-//        navigationController?.pushViewController(vc, animated: true)
+        let vc = SignIn()
+        navigationController?.pushViewController(vc, animated: true)
     }
     
 
