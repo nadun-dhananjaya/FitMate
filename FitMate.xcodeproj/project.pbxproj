@@ -11,6 +11,13 @@
 		919979EC2A0FE5850063E377 /* SplashUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 919979EB2A0FE5850063E377 /* SplashUI.swift */; };
 		919979EE2A0FE9140063E377 /* Test.swift in Sources */ = {isa = PBXBuildFile; fileRef = 919979ED2A0FE9140063E377 /* Test.swift */; };
 		919979F02A100BBA0063E377 /* SignUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 919979EF2A100BBA0063E377 /* SignUp.swift */; };
+		919979F22A100E910063E377 /* GenderSelectScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 919979F12A100E910063E377 /* GenderSelectScreen.swift */; };
+		91997A142A1090060063E377 /* AgeSelectScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91997A132A1090060063E377 /* AgeSelectScreen.swift */; };
+		91997A162A1090320063E377 /* WeightInputScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91997A152A1090320063E377 /* WeightInputScreen.swift */; };
+		91997A182A10904E0063E377 /* HeightInputScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91997A172A10904E0063E377 /* HeightInputScreen.swift */; };
+		91997A1A2A1090750063E377 /* ExerciseLevelScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91997A192A1090750063E377 /* ExerciseLevelScreen.swift */; };
+		91997A1C2A10908A0063E377 /* SetGoalScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91997A1B2A10908A0063E377 /* SetGoalScreen.swift */; };
+		91997A1F2A10A0910063E377 /* inputAccessoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91997A1E2A10A0910063E377 /* inputAccessoryView.swift */; };
 		91E948C129C1C839008701B7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91E948C029C1C839008701B7 /* AppDelegate.swift */; };
 		91E948C329C1C839008701B7 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91E948C229C1C839008701B7 /* SceneDelegate.swift */; };
 		91E948C529C1C839008701B7 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91E948C429C1C839008701B7 /* ViewController.swift */; };
@@ -23,6 +30,13 @@
 		919979EB2A0FE5850063E377 /* SplashUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashUI.swift; sourceTree = "<group>"; };
 		919979ED2A0FE9140063E377 /* Test.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Test.swift; sourceTree = "<group>"; };
 		919979EF2A100BBA0063E377 /* SignUp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUp.swift; sourceTree = "<group>"; };
+		919979F12A100E910063E377 /* GenderSelectScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenderSelectScreen.swift; sourceTree = "<group>"; };
+		91997A132A1090060063E377 /* AgeSelectScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgeSelectScreen.swift; sourceTree = "<group>"; };
+		91997A152A1090320063E377 /* WeightInputScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeightInputScreen.swift; sourceTree = "<group>"; };
+		91997A172A10904E0063E377 /* HeightInputScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeightInputScreen.swift; sourceTree = "<group>"; };
+		91997A192A1090750063E377 /* ExerciseLevelScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseLevelScreen.swift; sourceTree = "<group>"; };
+		91997A1B2A10908A0063E377 /* SetGoalScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetGoalScreen.swift; sourceTree = "<group>"; };
+		91997A1E2A10A0910063E377 /* inputAccessoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = inputAccessoryView.swift; sourceTree = "<group>"; };
 		91E948BD29C1C839008701B7 /* FitMate.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FitMate.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		91E948C029C1C839008701B7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		91E948C229C1C839008701B7 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -50,8 +64,22 @@
 				919979EB2A0FE5850063E377 /* SplashUI.swift */,
 				919979ED2A0FE9140063E377 /* Test.swift */,
 				919979EF2A100BBA0063E377 /* SignUp.swift */,
+				919979F12A100E910063E377 /* GenderSelectScreen.swift */,
+				91997A132A1090060063E377 /* AgeSelectScreen.swift */,
+				91997A152A1090320063E377 /* WeightInputScreen.swift */,
+				91997A172A10904E0063E377 /* HeightInputScreen.swift */,
+				91997A192A1090750063E377 /* ExerciseLevelScreen.swift */,
+				91997A1B2A10908A0063E377 /* SetGoalScreen.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		91997A1D2A10A06F0063E377 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				91997A1E2A10A0910063E377 /* inputAccessoryView.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		91E948B429C1C839008701B7 = {
@@ -73,6 +101,7 @@
 		91E948BF29C1C839008701B7 /* FitMate */ = {
 			isa = PBXGroup;
 			children = (
+				91997A1D2A10A06F0063E377 /* Extensions */,
 				919979E82A0FE3550063E377 /* Views */,
 				91E948C029C1C839008701B7 /* AppDelegate.swift */,
 				91E948C229C1C839008701B7 /* SceneDelegate.swift */,
@@ -154,12 +183,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				919979F22A100E910063E377 /* GenderSelectScreen.swift in Sources */,
 				919979F02A100BBA0063E377 /* SignUp.swift in Sources */,
+				91997A182A10904E0063E377 /* HeightInputScreen.swift in Sources */,
+				91997A1C2A10908A0063E377 /* SetGoalScreen.swift in Sources */,
 				91E948C529C1C839008701B7 /* ViewController.swift in Sources */,
 				91E948C129C1C839008701B7 /* AppDelegate.swift in Sources */,
 				919979EC2A0FE5850063E377 /* SplashUI.swift in Sources */,
 				91E948C329C1C839008701B7 /* SceneDelegate.swift in Sources */,
+				91997A162A1090320063E377 /* WeightInputScreen.swift in Sources */,
+				91997A1A2A1090750063E377 /* ExerciseLevelScreen.swift in Sources */,
+				91997A1F2A10A0910063E377 /* inputAccessoryView.swift in Sources */,
 				919979EA2A0FE37E0063E377 /* SignIn.swift in Sources */,
+				91997A142A1090060063E377 /* AgeSelectScreen.swift in Sources */,
 				919979EE2A0FE9140063E377 /* Test.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -306,6 +342,7 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -333,6 +370,7 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
