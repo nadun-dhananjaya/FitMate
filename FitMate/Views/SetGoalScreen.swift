@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SwiftKeychainWrapper
 
 class SetGoalScreen: UIViewController {
 
@@ -102,9 +103,19 @@ class SetGoalScreen: UIViewController {
         return button
     }()
     
+    func setDB(){
+        let saveSuccessful: Bool = KeychainWrapper.standard.set(goal, forKey: "goal")
+    }
+    
+    @objc func getNext(){
+        setDB()
+        let vc = BMIScreen()
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         setupUI()
     }
     
@@ -128,7 +139,8 @@ class SetGoalScreen: UIViewController {
         
         buttonLoose.addTarget(self, action: #selector(btnL), for: .touchUpInside)
         buttonGain.addTarget(self, action: #selector(btnG), for: .touchUpInside)
-        
+        buttonContinue.addTarget(self, action: #selector(getNext), for: .touchUpInside)
+
         
         //Constraints
         
@@ -191,6 +203,10 @@ class SetGoalScreen: UIViewController {
         
         goal = "Gain muscle"
     }
+    
+    
+   
+    
     
 
 }

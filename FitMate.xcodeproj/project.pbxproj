@@ -18,6 +18,8 @@
 		91997A1A2A1090750063E377 /* ExerciseLevelScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91997A192A1090750063E377 /* ExerciseLevelScreen.swift */; };
 		91997A1C2A10908A0063E377 /* SetGoalScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91997A1B2A10908A0063E377 /* SetGoalScreen.swift */; };
 		91997A1F2A10A0910063E377 /* inputAccessoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91997A1E2A10A0910063E377 /* inputAccessoryView.swift */; };
+		91997A212A10AB030063E377 /* BMIScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91997A202A10AB030063E377 /* BMIScreen.swift */; };
+		91997A272A10C2430063E377 /* SwiftKeychainWrapper in Frameworks */ = {isa = PBXBuildFile; productRef = 91997A262A10C2430063E377 /* SwiftKeychainWrapper */; };
 		91E948C129C1C839008701B7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91E948C029C1C839008701B7 /* AppDelegate.swift */; };
 		91E948C329C1C839008701B7 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91E948C229C1C839008701B7 /* SceneDelegate.swift */; };
 		91E948C529C1C839008701B7 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91E948C429C1C839008701B7 /* ViewController.swift */; };
@@ -37,6 +39,7 @@
 		91997A192A1090750063E377 /* ExerciseLevelScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseLevelScreen.swift; sourceTree = "<group>"; };
 		91997A1B2A10908A0063E377 /* SetGoalScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetGoalScreen.swift; sourceTree = "<group>"; };
 		91997A1E2A10A0910063E377 /* inputAccessoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = inputAccessoryView.swift; sourceTree = "<group>"; };
+		91997A202A10AB030063E377 /* BMIScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BMIScreen.swift; sourceTree = "<group>"; };
 		91E948BD29C1C839008701B7 /* FitMate.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FitMate.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		91E948C029C1C839008701B7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		91E948C229C1C839008701B7 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -51,6 +54,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				91997A272A10C2430063E377 /* SwiftKeychainWrapper in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -70,6 +74,7 @@
 				91997A172A10904E0063E377 /* HeightInputScreen.swift */,
 				91997A192A1090750063E377 /* ExerciseLevelScreen.swift */,
 				91997A1B2A10908A0063E377 /* SetGoalScreen.swift */,
+				91997A202A10AB030063E377 /* BMIScreen.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -129,6 +134,9 @@
 			dependencies = (
 			);
 			name = FitMate;
+			packageProductDependencies = (
+				91997A262A10C2430063E377 /* SwiftKeychainWrapper */,
+			);
 			productName = FitMate;
 			productReference = 91E948BD29C1C839008701B7 /* FitMate.app */;
 			productType = "com.apple.product-type.application";
@@ -157,6 +165,9 @@
 				Base,
 			);
 			mainGroup = 91E948B429C1C839008701B7;
+			packageReferences = (
+				91997A252A10C2430063E377 /* XCRemoteSwiftPackageReference "SwiftKeychainWrapper" */,
+			);
 			productRefGroup = 91E948BE29C1C839008701B7 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -195,6 +206,7 @@
 				91997A1A2A1090750063E377 /* ExerciseLevelScreen.swift in Sources */,
 				91997A1F2A10A0910063E377 /* inputAccessoryView.swift in Sources */,
 				919979EA2A0FE37E0063E377 /* SignIn.swift in Sources */,
+				91997A212A10AB030063E377 /* BMIScreen.swift in Sources */,
 				91997A142A1090060063E377 /* AgeSelectScreen.swift in Sources */,
 				919979EE2A0FE9140063E377 /* Test.swift in Sources */,
 			);
@@ -406,6 +418,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		91997A252A10C2430063E377 /* XCRemoteSwiftPackageReference "SwiftKeychainWrapper" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/jrendel/SwiftKeychainWrapper";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		91997A262A10C2430063E377 /* SwiftKeychainWrapper */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 91997A252A10C2430063E377 /* XCRemoteSwiftPackageReference "SwiftKeychainWrapper" */;
+			productName = SwiftKeychainWrapper;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 91E948B529C1C839008701B7 /* Project object */;
 }

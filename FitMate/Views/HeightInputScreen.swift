@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SwiftKeychainWrapper
 
 class HeightInputScreen: UIViewController {
 
@@ -207,9 +208,14 @@ class HeightInputScreen: UIViewController {
         type = "lbs"
     }
     
+    func setDB(){
+        let saveSuccessful: Bool = KeychainWrapper.standard.set(heightNumber, forKey: "height")
+    }
+    
     //button action
     
     @objc func getNext(){
+        setDB()
         let vc = ExerciseLevelScreen()
         navigationController?.pushViewController(vc, animated: true)
     }

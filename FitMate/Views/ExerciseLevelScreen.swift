@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SwiftKeychainWrapper
 
 class ExerciseLevelScreen: UIViewController {
 
@@ -229,6 +230,11 @@ class ExerciseLevelScreen: UIViewController {
         buttonAdv.layer.borderWidth = 0
         
         level = "Advanced"
+    }
+    
+    
+    func setDB(){
+        let saveSuccessful: Bool = KeychainWrapper.standard.set(level, forKey: "level")
     }
     
     //button action

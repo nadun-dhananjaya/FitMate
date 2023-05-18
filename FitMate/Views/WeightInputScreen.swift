@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SwiftKeychainWrapper
 
 class WeightInputScreen: UIViewController {
 
@@ -147,6 +148,9 @@ class WeightInputScreen: UIViewController {
         buttonLbs.addTarget(self, action: #selector(btnLbs), for: .touchUpInside)
         buttonContinue.addTarget(self, action: #selector(getNext), for: .touchUpInside)
         
+        textField.inputAccessoryView = toolBar()
+
+        
         //Constraints
 
         NSLayoutConstraint.activate([
@@ -208,7 +212,12 @@ class WeightInputScreen: UIViewController {
     
     //button action
     
+    func setDB(){
+        let saveSuccessful: Bool = KeychainWrapper.standard.set(weightNumber, forKey: "weight")
+    }
+    
     @objc func getNext(){
+        setDB()
         let vc = HeightInputScreen()
         navigationController?.pushViewController(vc, animated: true)
     }

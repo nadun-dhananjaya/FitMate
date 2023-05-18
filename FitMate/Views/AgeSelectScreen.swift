@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SwiftKeychainWrapper
 
 class AgeSelectScreen: UIViewController, UITextFieldDelegate {
 
@@ -88,9 +89,11 @@ class AgeSelectScreen: UIViewController, UITextFieldDelegate {
         return button
     }()
     
+   
     override func viewDidLoad() {
         super.viewDidLoad()
 
+       
         setupUI()
     }
     
@@ -157,9 +160,12 @@ class AgeSelectScreen: UIViewController, UITextFieldDelegate {
     
     //Button action functions
     
- 
+    func setDB(){
+        let saveSuccessful: Bool = KeychainWrapper.standard.set(age, forKey: "age")
+    }
     
     @objc func getNext(){
+        setDB()
         let vc = WeightInputScreen()
         navigationController?.pushViewController(vc, animated: true)
     }

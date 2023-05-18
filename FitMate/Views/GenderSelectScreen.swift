@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SwiftKeychainWrapper
 
 class GenderSelectScreen: UIViewController {
 
@@ -175,6 +176,7 @@ class GenderSelectScreen: UIViewController {
         buttonFemale.backgroundColor = UIColor(red: 253/255, green: 187/255, blue: 211/255, alpha: 1.0)
         
         gender = "Male"
+        setDB()
     }
     
     @objc func propFemale(){
@@ -182,8 +184,12 @@ class GenderSelectScreen: UIViewController {
         buttonMale.backgroundColor = UIColor(red: 157/255, green: 202/255, blue: 239/255, alpha: 1.0)
         
         gender = "Female"
+        setDB()
     }
     
+    func setDB(){
+        let saveSuccessful: Bool = KeychainWrapper.standard.set(gender, forKey: "gender")
+    }
     @objc func getNext(){
         let vc = AgeSelectScreen()
         navigationController?.pushViewController(vc, animated: true)
