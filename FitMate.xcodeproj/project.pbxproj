@@ -8,9 +8,14 @@
 
 /* Begin PBXBuildFile section */
 		914B75022A188A2B00552AC7 /* HomeTabController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 914B75012A188A2B00552AC7 /* HomeTabController.swift */; };
+		914B75042A188AE300552AC7 /* HomeScreen3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 914B75032A188AE300552AC7 /* HomeScreen3.swift */; };
+		914B75062A188AFB00552AC7 /* ScheduleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 914B75052A188AFB00552AC7 /* ScheduleView.swift */; };
+		914B75092A18D11600552AC7 /* Exercise.swift in Sources */ = {isa = PBXBuildFile; fileRef = 914B75082A18D11600552AC7 /* Exercise.swift */; };
+		914B750C2A18D44900552AC7 /* ExerciseComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 914B750B2A18D44900552AC7 /* ExerciseComponent.swift */; };
+		914B75102A19100600552AC7 /* HomeScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 914B750F2A19100600552AC7 /* HomeScreen.swift */; };
+		914B75122A19113F00552AC7 /* ViewExercise.swift in Sources */ = {isa = PBXBuildFile; fileRef = 914B75112A19113F00552AC7 /* ViewExercise.swift */; };
 		919979EA2A0FE37E0063E377 /* SignIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 919979E92A0FE37E0063E377 /* SignIn.swift */; };
 		919979EC2A0FE5850063E377 /* SplashUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 919979EB2A0FE5850063E377 /* SplashUI.swift */; };
-		919979EE2A0FE9140063E377 /* Test.swift in Sources */ = {isa = PBXBuildFile; fileRef = 919979ED2A0FE9140063E377 /* Test.swift */; };
 		919979F02A100BBA0063E377 /* SignUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 919979EF2A100BBA0063E377 /* SignUp.swift */; };
 		919979F22A100E910063E377 /* GenderSelectScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 919979F12A100E910063E377 /* GenderSelectScreen.swift */; };
 		91997A142A1090060063E377 /* AgeSelectScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91997A132A1090060063E377 /* AgeSelectScreen.swift */; };
@@ -30,9 +35,14 @@
 
 /* Begin PBXFileReference section */
 		914B75012A188A2B00552AC7 /* HomeTabController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTabController.swift; sourceTree = "<group>"; };
+		914B75032A188AE300552AC7 /* HomeScreen3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScreen3.swift; sourceTree = "<group>"; };
+		914B75052A188AFB00552AC7 /* ScheduleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleView.swift; sourceTree = "<group>"; };
+		914B75082A18D11600552AC7 /* Exercise.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Exercise.swift; sourceTree = "<group>"; };
+		914B750B2A18D44900552AC7 /* ExerciseComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseComponent.swift; sourceTree = "<group>"; };
+		914B750F2A19100600552AC7 /* HomeScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScreen.swift; sourceTree = "<group>"; };
+		914B75112A19113F00552AC7 /* ViewExercise.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewExercise.swift; sourceTree = "<group>"; };
 		919979E92A0FE37E0063E377 /* SignIn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignIn.swift; sourceTree = "<group>"; };
 		919979EB2A0FE5850063E377 /* SplashUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashUI.swift; sourceTree = "<group>"; };
-		919979ED2A0FE9140063E377 /* Test.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Test.swift; sourceTree = "<group>"; };
 		919979EF2A100BBA0063E377 /* SignUp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUp.swift; sourceTree = "<group>"; };
 		919979F12A100E910063E377 /* GenderSelectScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenderSelectScreen.swift; sourceTree = "<group>"; };
 		91997A132A1090060063E377 /* AgeSelectScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgeSelectScreen.swift; sourceTree = "<group>"; };
@@ -66,9 +76,30 @@
 		914B75002A18898F00552AC7 /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				914B750A2A18D40B00552AC7 /* Component */,
 				914B75012A188A2B00552AC7 /* HomeTabController.swift */,
+				914B75032A188AE300552AC7 /* HomeScreen3.swift */,
+				914B75052A188AFB00552AC7 /* ScheduleView.swift */,
+				914B750F2A19100600552AC7 /* HomeScreen.swift */,
+				914B75112A19113F00552AC7 /* ViewExercise.swift */,
 			);
 			path = Home;
+			sourceTree = "<group>";
+		};
+		914B75072A18D0EA00552AC7 /* model */ = {
+			isa = PBXGroup;
+			children = (
+				914B75082A18D11600552AC7 /* Exercise.swift */,
+			);
+			path = model;
+			sourceTree = "<group>";
+		};
+		914B750A2A18D40B00552AC7 /* Component */ = {
+			isa = PBXGroup;
+			children = (
+				914B750B2A18D44900552AC7 /* ExerciseComponent.swift */,
+			);
+			path = Component;
 			sourceTree = "<group>";
 		};
 		919979E82A0FE3550063E377 /* Views */ = {
@@ -77,7 +108,6 @@
 				914B75002A18898F00552AC7 /* Home */,
 				919979E92A0FE37E0063E377 /* SignIn.swift */,
 				919979EB2A0FE5850063E377 /* SplashUI.swift */,
-				919979ED2A0FE9140063E377 /* Test.swift */,
 				919979EF2A100BBA0063E377 /* SignUp.swift */,
 				919979F12A100E910063E377 /* GenderSelectScreen.swift */,
 				91997A132A1090060063E377 /* AgeSelectScreen.swift */,
@@ -117,6 +147,7 @@
 		91E948BF29C1C839008701B7 /* FitMate */ = {
 			isa = PBXGroup;
 			children = (
+				914B75072A18D0EA00552AC7 /* model */,
 				91997A1D2A10A06F0063E377 /* Extensions */,
 				919979E82A0FE3550063E377 /* Views */,
 				91E948C029C1C839008701B7 /* AppDelegate.swift */,
@@ -206,21 +237,26 @@
 			buildActionMask = 2147483647;
 			files = (
 				919979F22A100E910063E377 /* GenderSelectScreen.swift in Sources */,
+				914B750C2A18D44900552AC7 /* ExerciseComponent.swift in Sources */,
 				919979F02A100BBA0063E377 /* SignUp.swift in Sources */,
 				91997A182A10904E0063E377 /* HeightInputScreen.swift in Sources */,
+				914B75102A19100600552AC7 /* HomeScreen.swift in Sources */,
 				91997A1C2A10908A0063E377 /* SetGoalScreen.swift in Sources */,
 				91E948C529C1C839008701B7 /* ViewController.swift in Sources */,
+				914B75062A188AFB00552AC7 /* ScheduleView.swift in Sources */,
 				91E948C129C1C839008701B7 /* AppDelegate.swift in Sources */,
+				914B75122A19113F00552AC7 /* ViewExercise.swift in Sources */,
 				914B75022A188A2B00552AC7 /* HomeTabController.swift in Sources */,
 				919979EC2A0FE5850063E377 /* SplashUI.swift in Sources */,
+				914B75092A18D11600552AC7 /* Exercise.swift in Sources */,
 				91E948C329C1C839008701B7 /* SceneDelegate.swift in Sources */,
 				91997A162A1090320063E377 /* WeightInputScreen.swift in Sources */,
 				91997A1A2A1090750063E377 /* ExerciseLevelScreen.swift in Sources */,
 				91997A1F2A10A0910063E377 /* inputAccessoryView.swift in Sources */,
+				914B75042A188AE300552AC7 /* HomeScreen3.swift in Sources */,
 				919979EA2A0FE37E0063E377 /* SignIn.swift in Sources */,
 				91997A212A10AB030063E377 /* BMIScreen.swift in Sources */,
 				91997A142A1090060063E377 /* AgeSelectScreen.swift in Sources */,
-				919979EE2A0FE9140063E377 /* Test.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

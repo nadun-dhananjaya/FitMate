@@ -203,6 +203,7 @@ class BMIScreen: UIViewController {
         buttonStart.widthAnchor.constraint(equalToConstant: 227).isActive = true
         buttonStart.heightAnchor.constraint(equalToConstant: 50).isActive = true
 
+        buttonStart.addTarget(self, action: #selector(getNext), for: .touchUpInside)
         calculateBMI()
     
     }
@@ -244,17 +245,17 @@ class BMIScreen: UIViewController {
         
         
         
-        let home = UINavigationController(rootViewController: viewHome())
-        let schedule = UINavigationController(rootViewController: viewSchedule())
-        let progress = UINavigationController(rootViewController: viewProgress())
-        let profile = UINavigationController(rootViewController: viewProfile())
+        let home = UINavigationController(rootViewController: HomeScreen())
+        let schedule = UINavigationController(rootViewController: ScheduleView())
+//        let progress = UINavigationController(rootViewController: viewProgress())
+//        let profile = UINavigationController(rootViewController: viewProfile())
         
         home.title = "Home"
         schedule.title = "Schedule"
-        progress.title = "Progress"
-        profile.title = "Profile"
+//        progress.title = "Progress"
+//        profile.title = "Profile"
         
-        tabBarController.setViewControllers([home,schedule,progress,profile], animated: false)
+        tabBarController.setViewControllers([home,schedule], animated: false)
         
         guard let items = tabBarController.tabBar.items else {
             return
