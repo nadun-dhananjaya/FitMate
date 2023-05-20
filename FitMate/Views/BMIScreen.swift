@@ -10,16 +10,7 @@ import SwiftKeychainWrapper
 
 class BMIScreen: UIViewController {
 
-    func readDB() {
-        let gender: String? = KeychainWrapper.standard.string(forKey: "gender")
-        let age: String? = KeychainWrapper.standard.string(forKey: "age")
-        let weight: String? = KeychainWrapper.standard.string(forKey: "weight")
-        let height: String? = KeychainWrapper.standard.string(forKey: "height")
-        let level: String? = KeychainWrapper.standard.string(forKey: "level")
-        let goal: String? = KeychainWrapper.standard.string(forKey: "goal")
-
-
-    }
+   
     
     //Var
     
@@ -91,7 +82,7 @@ class BMIScreen: UIViewController {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = .systemFont(ofSize: 32, weight: .thin)
-        label.text = "Underweight"
+        label.text = "-"
         label.textAlignment = .center
         label.textColor = .white
         label.backgroundColor = UIColor(red: 1/255, green: 166/255, blue: 170/255, alpha: 1.0)
@@ -113,7 +104,7 @@ class BMIScreen: UIViewController {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = .systemFont(ofSize: 28, weight: .regular)
-        label.text = "Gain Muscle"
+        label.text = "-"
         label.textAlignment = .center
         label.textColor = .white
         label.backgroundColor = UIColor(red: 255/255, green: 114/255, blue: 94/255, alpha: 1.0)
@@ -144,6 +135,7 @@ class BMIScreen: UIViewController {
         super.viewDidLoad()
         
         setupUI();
+       
     }
     
     func setupUI(){
@@ -211,8 +203,77 @@ class BMIScreen: UIViewController {
         buttonStart.widthAnchor.constraint(equalToConstant: 227).isActive = true
         buttonStart.heightAnchor.constraint(equalToConstant: 50).isActive = true
 
-            
+        calculateBMI()
     
+    }
+    
+  
+    func calculateBMI(){
+        
+        let data = UserDefaults.standard
+        
+        let weight = Double(data.integer(forKey: "weight"))
+        let height = Double(data.integer(forKey: "height"))
+        
+        let bmi = (weight/(height/100)/(height/100))
+
+        let bmiDouble = Double(bmi)
+
+        print(weight, height, bmi, bmiDouble)
+//
+        if(bmiDouble<18.5){
+            labelFive.text = "Underweight"
+            labelSeven.text = "Gain Muscle"
+        } else if bmiDouble < 25 {
+            labelFive.text = "Normal Weight"
+            labelSeven.text = "Gain Muscle"
+        } else if bmiDouble < 30 {
+            labelFive.text = "Overweight"
+            labelSeven.text = "Lose Weight"
+        } else {
+            labelFive.text = "Obese"
+            labelSeven.text = "Lose Weight"
+        }
+    }
+    
+    @objc func getNext() {
+        
+      
+        
+        let tabBarController = UITabBarController()
+        
+        
+        
+        let home = UINavigationController(rootViewController: viewHome())
+        let schedule = UINavigationController(rootViewController: viewSchedule())
+        let progress = UINavigationController(rootViewController: viewProgress())
+        let profile = UINavigationController(rootViewController: viewProfile())
+        
+        home.title = "Home"
+        schedule.title = "Schedule"
+        progress.title = "Progress"
+        profile.title = "Profile"
+        
+        tabBarController.setViewControllers([home,schedule,progress,profile], animated: false)
+        
+        guard let items = tabBarController.tabBar.items else {
+            return
+        }
+        
+        let images = ["house","calendar","chart.xyaxis.line","person.crop.circle"]
+    
+        for x in 0..<items.count {
+            items[x].image = UIImage(systemName: images[x])
+            items[x].badgeColor = UIColor.orange
+        }
+        
+        let tabBarAppearance = UITabBar.appearance()
+        tabBarAppearance.backgroundColor = .white
+        tabBarAppearance.tintColor = .orange
+        
+        tabBarController.modalPresentationStyle = .fullScreen
+        present(tabBarController, animated: false)
+        
     }
 }
 

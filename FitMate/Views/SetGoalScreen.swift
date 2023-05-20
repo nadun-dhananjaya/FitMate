@@ -107,12 +107,7 @@ class SetGoalScreen: UIViewController {
         let saveSuccessful: Bool = KeychainWrapper.standard.set(goal, forKey: "goal")
     }
     
-    @objc func getNext(){
-        setDB()
-        let vc = BMIScreen()
-        navigationController?.pushViewController(vc, animated: true)
-    }
-    
+   
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -206,6 +201,26 @@ class SetGoalScreen: UIViewController {
     
     
    
+    @objc func getNext(){
+        
+        if(goal.isEmpty){
+            let alert = UIAlertController(title: "Missing Goal", message: "Please choose your goal.", preferredStyle: .alert)
+            let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+            alert.addAction(okAction)
+            present(alert, animated: true, completion: nil)
+        }
+        else{
+            
+            let data = UserDefaults.standard
+            data.set(goal, forKey: "goal")
+            
+            let vc = BMIScreen()
+            navigationController?.pushViewController(vc, animated: true)
+            
+            
+        }
+      
+    }
     
     
 

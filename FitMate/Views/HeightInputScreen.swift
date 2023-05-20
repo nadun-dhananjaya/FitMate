@@ -65,7 +65,7 @@ class HeightInputScreen: UIViewController {
     
    
     
-    let textField : UITextField = {
+    let heightTextField : UITextField = {
         let textField = UITextField()
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.borderStyle = .roundedRect
@@ -133,7 +133,7 @@ class HeightInputScreen: UIViewController {
         view.addSubview(titleLabel)
         view.addSubview(imageAge)
         view.addSubview(IamLabel)
-        view.addSubview(textField)
+        view.addSubview(heightTextField)
         
         hStack.addArrangedSubview(buttonCM)
         hStack.addArrangedSubview(buttonFt)
@@ -172,13 +172,13 @@ class HeightInputScreen: UIViewController {
             IamLabel.heightAnchor.constraint(equalToConstant: 55),
             
             
-            textField.topAnchor.constraint(equalTo: imageAge.bottomAnchor, constant: 27),
-            textField.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 180),
-            textField.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -100),
-            textField.heightAnchor.constraint(equalToConstant: 55),
-            textField.widthAnchor.constraint(equalToConstant: 103),
+            heightTextField.topAnchor.constraint(equalTo: imageAge.bottomAnchor, constant: 27),
+            heightTextField.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 180),
+            heightTextField.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -100),
+            heightTextField.heightAnchor.constraint(equalToConstant: 55),
+            heightTextField.widthAnchor.constraint(equalToConstant: 103),
             
-            hStack.topAnchor.constraint(equalTo: textField.bottomAnchor, constant: 40),
+            hStack.topAnchor.constraint(equalTo: heightTextField.bottomAnchor, constant: 40),
             hStack.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             
             buttonCM.heightAnchor.constraint(equalToConstant: 56),
@@ -215,7 +215,21 @@ class HeightInputScreen: UIViewController {
     //button action
     
     @objc func getNext(){
-        setDB()
+
+        guard let heightString = heightTextField.text, let height = Int(heightString), height >= 0 && !(heightString.isEmpty) else {
+            let alert = UIAlertController(title: "Invalid Height", message: "Please enter a valid height.", preferredStyle: .alert)
+            let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+            alert.addAction(okAction)
+            present(alert, animated: true, completion: nil)
+            return
+        }
+        
+        
+       
+        let data = UserDefaults.standard
+        data.set(height, forKey: "height")
+        
+        
         let vc = ExerciseLevelScreen()
         navigationController?.pushViewController(vc, animated: true)
     }

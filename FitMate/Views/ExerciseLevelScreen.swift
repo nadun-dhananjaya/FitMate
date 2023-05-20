@@ -233,15 +233,27 @@ class ExerciseLevelScreen: UIViewController {
     }
     
     
-    func setDB(){
-        let saveSuccessful: Bool = KeychainWrapper.standard.set(level, forKey: "level")
-    }
+  
     
     //button action
     
     @objc func getNext(){
-        let vc = SetGoalScreen()
-        navigationController?.pushViewController(vc, animated: true)
+      
+            
+        if(level.isEmpty){
+            let alert = UIAlertController(title: "Missing Level", message: "Please choose your level.", preferredStyle: .alert)
+            let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+            alert.addAction(okAction)
+            present(alert, animated: true, completion: nil)
+        }
+        else{
+            let data = UserDefaults.standard
+            data.set(level, forKey: "Level")
+            
+            let vc = SetGoalScreen()
+            navigationController?.pushViewController(vc, animated: true)
+            
+        }
     }
 
 }

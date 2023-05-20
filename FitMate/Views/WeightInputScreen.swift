@@ -64,7 +64,7 @@ class WeightInputScreen: UIViewController {
     
    
     
-    let textField : UITextField = {
+    let weightTextField : UITextField = {
         let textField = UITextField()
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.borderStyle = .roundedRect
@@ -132,7 +132,7 @@ class WeightInputScreen: UIViewController {
         view.addSubview(titleLabel)
         view.addSubview(imageAge)
         view.addSubview(IamLabel)
-        view.addSubview(textField)
+        view.addSubview(weightTextField)
         
         hStack.addArrangedSubview(buttonKg)
         hStack.addArrangedSubview(buttonLbs)
@@ -148,7 +148,7 @@ class WeightInputScreen: UIViewController {
         buttonLbs.addTarget(self, action: #selector(btnLbs), for: .touchUpInside)
         buttonContinue.addTarget(self, action: #selector(getNext), for: .touchUpInside)
         
-        textField.inputAccessoryView = toolBar()
+        weightTextField.inputAccessoryView = toolBar()
 
         
         //Constraints
@@ -174,13 +174,13 @@ class WeightInputScreen: UIViewController {
             IamLabel.heightAnchor.constraint(equalToConstant: 55),
             
             
-            textField.topAnchor.constraint(equalTo: imageAge.bottomAnchor, constant: 27),
-            textField.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 180),
-            textField.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -100),
-            textField.heightAnchor.constraint(equalToConstant: 55),
-            textField.widthAnchor.constraint(equalToConstant: 103),
+            weightTextField.topAnchor.constraint(equalTo: imageAge.bottomAnchor, constant: 27),
+            weightTextField.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 180),
+            weightTextField.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -100),
+            weightTextField.heightAnchor.constraint(equalToConstant: 55),
+            weightTextField.widthAnchor.constraint(equalToConstant: 103),
             
-            hStack.topAnchor.constraint(equalTo: textField.bottomAnchor, constant: 40),
+            hStack.topAnchor.constraint(equalTo: weightTextField.bottomAnchor, constant: 40),
             hStack.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             
             buttonKg.heightAnchor.constraint(equalToConstant: 56),
@@ -217,7 +217,19 @@ class WeightInputScreen: UIViewController {
     }
     
     @objc func getNext(){
-        setDB()
+
+        guard let weightString = weightTextField.text, let weight = Int(weightString), weight >= 0 && !(weightString.isEmpty) else {
+            let alert = UIAlertController(title: "Invalid Weight", message: "Please enter a valid weight.", preferredStyle: .alert)
+            let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+            alert.addAction(okAction)
+            present(alert, animated: true, completion: nil)
+            return
+        }
+        
+
+        let data = UserDefaults.standard
+        data.set(weight, forKey: "weight")
+        
         let vc = HeightInputScreen()
         navigationController?.pushViewController(vc, animated: true)
     }

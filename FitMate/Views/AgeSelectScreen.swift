@@ -160,12 +160,22 @@ class AgeSelectScreen: UIViewController, UITextFieldDelegate {
     
     //Button action functions
     
-    func setDB(){
-        let saveSuccessful: Bool = KeychainWrapper.standard.set(age, forKey: "age")
-    }
+    
     
     @objc func getNext(){
-        setDB()
+
+        // Validate age input
+        guard let ageString = ageTextField.text, let age = Int(ageString), age >= 0 && age <= 120 else {
+            let alert = UIAlertController(title: "Invalid Age", message: "Please enter a valid age between 0 and 120.", preferredStyle: .alert)
+            let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+            alert.addAction(okAction)
+            present(alert, animated: true, completion: nil)
+            return
+        }
+        
+        let data = UserDefaults.standard
+        data.set(age, forKey: "age")
+        
         let vc = WeightInputScreen()
         navigationController?.pushViewController(vc, animated: true)
     }
