@@ -17,6 +17,7 @@
 		914B75152A19223000552AC7 /* YouTubePlayerKit in Frameworks */ = {isa = PBXBuildFile; productRef = 914B75142A19223000552AC7 /* YouTubePlayerKit */; };
 		914B75172A19E91400552AC7 /* ExerciseFinishView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 914B75162A19E91400552AC7 /* ExerciseFinishView.swift */; };
 		914B75192A1A043E00552AC7 /* Test.swift in Sources */ = {isa = PBXBuildFile; fileRef = 914B75182A1A043E00552AC7 /* Test.swift */; };
+		914B751C2A1A11C000552AC7 /* LKRulerPicker in Frameworks */ = {isa = PBXBuildFile; productRef = 914B751B2A1A11C000552AC7 /* LKRulerPicker */; };
 		919979EA2A0FE37E0063E377 /* SignIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 919979E92A0FE37E0063E377 /* SignIn.swift */; };
 		919979EC2A0FE5850063E377 /* SplashUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 919979EB2A0FE5850063E377 /* SplashUI.swift */; };
 		919979F02A100BBA0063E377 /* SignUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 919979EF2A100BBA0063E377 /* SignUp.swift */; };
@@ -72,6 +73,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				914B75152A19223000552AC7 /* YouTubePlayerKit in Frameworks */,
+				914B751C2A1A11C000552AC7 /* LKRulerPicker in Frameworks */,
 				91997A272A10C2430063E377 /* SwiftKeychainWrapper in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -187,6 +189,7 @@
 			packageProductDependencies = (
 				91997A262A10C2430063E377 /* SwiftKeychainWrapper */,
 				914B75142A19223000552AC7 /* YouTubePlayerKit */,
+				914B751B2A1A11C000552AC7 /* LKRulerPicker */,
 			);
 			productName = FitMate;
 			productReference = 91E948BD29C1C839008701B7 /* FitMate.app */;
@@ -219,6 +222,7 @@
 			packageReferences = (
 				91997A252A10C2430063E377 /* XCRemoteSwiftPackageReference "SwiftKeychainWrapper" */,
 				914B75132A19223000552AC7 /* XCRemoteSwiftPackageReference "YouTubePlayerKit" */,
+				914B751A2A1A11C000552AC7 /* XCRemoteSwiftPackageReference "LKRulerPicker" */,
 			);
 			productRefGroup = 91E948BE29C1C839008701B7 /* Products */;
 			projectDirPath = "";
@@ -488,6 +492,14 @@
 				minimumVersion = 1.0.0;
 			};
 		};
+		914B751A2A1A11C000552AC7 /* XCRemoteSwiftPackageReference "LKRulerPicker" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/lalkrishna/LKRulerPicker";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
 		91997A252A10C2430063E377 /* XCRemoteSwiftPackageReference "SwiftKeychainWrapper" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/jrendel/SwiftKeychainWrapper";
@@ -503,6 +515,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 914B75132A19223000552AC7 /* XCRemoteSwiftPackageReference "YouTubePlayerKit" */;
 			productName = YouTubePlayerKit;
+		};
+		914B751B2A1A11C000552AC7 /* LKRulerPicker */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 914B751A2A1A11C000552AC7 /* XCRemoteSwiftPackageReference "LKRulerPicker" */;
+			productName = LKRulerPicker;
 		};
 		91997A262A10C2430063E377 /* SwiftKeychainWrapper */ = {
 			isa = XCSwiftPackageProductDependency;

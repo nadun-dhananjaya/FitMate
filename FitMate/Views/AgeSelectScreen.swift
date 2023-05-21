@@ -6,14 +6,39 @@
 //
 
 import UIKit
-import SwiftKeychainWrapper
+import LKRulerPicker
 
-class AgeSelectScreen: UIViewController, UITextFieldDelegate {
+class AgeSelectScreen: UIViewController, LKRulerPickerDataSource, LKRulerPickerDelegate  {
 
+  
+    var age : String = "38 Years Old"
+    func rulerPicker(_ picker: LKRulerPicker, didSelectItemAtIndex index: Int) {
+        age = rulerPicker(picker, highlightTitleForIndex: index) ?? ""
+        print(age)
+      }
     
-    var age : String = ""
     
-    //UI Comps
+    func rulerPicker(_ picker: LKRulerPicker, titleForIndex index: Int) -> String? {
+        guard index % picker.configuration.metrics.divisions == 0 else { return nil }
+               switch picker {
+               case agePicker:
+                   return "\(picker.configuration.metrics.minimumValue + index) "
+               default:
+                   fatalError("Handler picker")
+               }
+    }
+    
+    func rulerPicker(_ picker: LKRulerPicker, highlightTitleForIndex index: Int) -> String? {
+        switch picker {
+               case agePicker:
+                   return "\(picker.configuration.metrics.minimumValue + index) Years Old"
+            
+               default:
+                   fatalError("Handler picker")
+               }
+    }
+    
+
     
     let progressView : UIProgressView = {
         let progressView = UIProgressView(progressViewStyle: .bar)
@@ -23,160 +48,156 @@ class AgeSelectScreen: UIViewController, UITextFieldDelegate {
         return progressView
     }()
     
-    let stepCountLabel : UILabel = {
+    
+    let ageTitleLabel: UILabel = {
         let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = .systemFont(ofSize: 14, weight: .semibold)
-        label.textColor = UIColor(red: 140/255, green: 140/255, blue: 140/255, alpha: 1.0)
-        label.text = "Step 2/6"
+        label.text = "How old are you?"
         label.textAlignment = .center
+        label.font = UIFont.boldSystemFont(ofSize: 24)
+        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-    
-    let titleLabel : UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = .systemFont(ofSize: 26, weight: .thin)
-        label.text = "How old are you ?"
-        label.textAlignment = .center
-        return label
-    }()
-    
 
-    
-    let imageGender: UIImageView = {
-        let imageView = UIImageView(image: UIImage(named: "age"))
+    let personImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = UIImage(named: "man")
         imageView.contentMode = .scaleAspectFit
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
-    
-    
-    
-    let IamLabel : UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = .systemFont(ofSize: 36, weight: .thin)
-        label.text = "I am"
-        label.textAlignment = .center
-        return label
-    }()
-    
 
-    let ageTextField : UITextField = {
-        let textField = UITextField()
-        textField.translatesAutoresizingMaskIntoConstraints = false
-        textField.borderStyle = .roundedRect
-        textField.placeholder = "25"
-        textField.textAlignment = .center
-        textField.keyboardType = .numberPad
-        textField.font = .systemFont(ofSize: 36, weight: .semibold)
-        textField.backgroundColor = .white
-        textField.layer.borderWidth = 1.0
-        textField.layer.cornerRadius = 10
-        textField.textColor = .black
-        return textField
-    }()
     
-    
-    let buttonContinue : UIButton = {
-        let button = UIButton()
-        button.translatesAutoresizingMaskIntoConstraints = false
+    private lazy var agePicker: LKRulerPicker = {
+        $0.dataSource = self
+        $0.delegate = self
+        $0.tintColor = UIColor.black.withAlphaComponent(0.5)
+        $0.highlightLineColor = .black
+        $0.highlightTextColor = .black
+        $0.translatesAutoresizingMaskIntoConstraints = false
+
+        return $0
+    }(LKRulerPicker())
+
+    let nextButton: UIButton = {
+        let button = UIButton(type: .roundedRect)
         button.setTitle("Next", for: .normal)
-        button.titleLabel?.font = .systemFont(ofSize: 20, weight: .semibold)
-        button.backgroundColor = UIColor(red: 69/255, green: 90/255, blue: 100/255, alpha: 1.0)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.backgroundColor = .orange
+        button.setTitleColor(.white, for: .normal)
+        button.titleLabel?.font = .systemFont(ofSize: 16, weight: .semibold)
         button.layer.cornerRadius = 10
         return button
     }()
+
+
     
-   
     override func viewDidLoad() {
         super.viewDidLoad()
-
-       
+        
         setupUI()
+        setupConstraints()
     }
     
-    func setupUI(){
+    func setupUI() {
         view.backgroundColor = .white
         view.addSubview(progressView)
-        view.addSubview(stepCountLabel)
-        view.addSubview(titleLabel)
-        view.addSubview(imageGender)
-        view.addSubview(IamLabel)
-        view.addSubview(ageTextField)
-        view.addSubview(buttonContinue)
+
+        view.addSubview(ageTitleLabel)
+        view.addSubview(personImageView)
+        view.addSubview(agePicker)
+        view.addSubview(nextButton)
         
-      
-  
-        ageTextField.inputAccessoryView = toolBar()
+        
+        if let gender = UserDefaults.standard.string(forKey: "gender") {
+            // The string value exists in UserDefaults
+            if(gender == "Female"){
+                personImageView.image =  UIImage(named: "woman")
+            }
+        } else {
+            // The string value does not exist in UserDefaults
+            print("No stored string found")
+        }
 
-
+        
         progressView.frame = CGRect(x: (view.frame.size.width)/8, y: 100, width: view.frame.size.width-100, height: 20)
-        
-        //Button Actions
-        
-         buttonContinue.addTarget(self, action: #selector(getNext), for: .touchUpInside)
-        
-        //Constraints
-        
-        NSLayoutConstraint.activate([
-            stepCountLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
-            stepCountLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-            stepCountLabel.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-            
-            titleLabel.topAnchor.constraint(equalTo: stepCountLabel.bottomAnchor, constant: 20),
-            titleLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
-            titleLabel.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
-            titleLabel.heightAnchor.constraint(equalToConstant: 40),
-            
-          
-            
-            imageGender.topAnchor.constraint(equalTo: titleLabel.bottomAnchor,constant: 40),
-            imageGender.heightAnchor.constraint(equalToConstant: 180),
-            imageGender.widthAnchor.constraint(equalToConstant: 180),
-            imageGender.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            
-            IamLabel.topAnchor.constraint(equalTo: imageGender.bottomAnchor, constant: 20),
-            IamLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-            IamLabel.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
-            IamLabel.heightAnchor.constraint(equalToConstant: 40),
-            
-        
-            
-            ageTextField.topAnchor.constraint(equalTo: IamLabel.bottomAnchor, constant: 35),
-            ageTextField.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
-            ageTextField.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
-            ageTextField.heightAnchor.constraint(equalToConstant: 65),
-      
 
-            buttonContinue.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -40),
-            buttonContinue.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            buttonContinue.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
-            buttonContinue.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
-            buttonContinue.heightAnchor.constraint(equalToConstant: 55),
-        ])
+        let heightMetrics = LKRulerPickerConfiguration.Metrics(
+                    minimumValue: 10,
+                    defaultValue: 20,
+                    maximumValue: 120,
+                    divisions: 5,
+                    fullLineSize: 38,
+                    midLineSize: 28,
+                    smallLineSize: 28)
+        
+        agePicker.configuration = LKRulerPickerConfiguration(
+                    scrollDirection: .horizontal,
+                    alignment: .end,
+                    metrics: heightMetrics,
+                    isHapticsEnabled: false)
+        
+        nextButton.addTarget(self, action: #selector(getNext), for: .touchUpInside)
+
+        
+        
     }
     
-    //Button action functions
     
+    func setupConstraints() {
+        let safeArea = view.safeAreaLayoutGuide
+
+        NSLayoutConstraint.activate([
+          
+            progressView.topAnchor.constraint(equalTo: safeArea.topAnchor, constant: 50),
+            progressView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 20),
+            progressView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -20),
+
+            ageTitleLabel.topAnchor.constraint(equalTo: progressView.bottomAnchor, constant: 50),
+            ageTitleLabel.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor),
+            ageTitleLabel.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor),
+
+
+            personImageView.topAnchor.constraint(equalTo: ageTitleLabel.bottomAnchor, constant: 20),
+            personImageView.centerXAnchor.constraint(equalTo: safeArea.centerXAnchor),
+            personImageView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor),
+            personImageView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor),
+            personImageView.heightAnchor.constraint(equalToConstant: 250),
+
+            agePicker.topAnchor.constraint(equalTo: personImageView.bottomAnchor, constant: 20),
+            agePicker.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor),
+            agePicker.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor),
+            agePicker.heightAnchor.constraint(equalToConstant: 100),
+
+            nextButton.topAnchor.constraint(equalTo: view.bottomAnchor, constant: -150),
+            nextButton.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 20),
+            nextButton.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -20),
+            nextButton.heightAnchor.constraint(equalToConstant: 60),
+        ])
+    }
     
     
     @objc func getNext(){
 
-        // Validate age input
-        guard let ageString = ageTextField.text, let age = Int(ageString), age >= 0 && age <= 120 else {
-            let alert = UIAlertController(title: "Invalid Age", message: "Please enter a valid age between 0 and 120.", preferredStyle: .alert)
-            let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-            alert.addAction(okAction)
-            present(alert, animated: true, completion: nil)
-            return
+        let ageString = age
+
+        if let ageRange = ageString.range(of: #"(\d+)"#, options: .regularExpression) {
+            let selectedAge = Int(ageString[ageRange])
+            
+            print(selectedAge!)
+           
+            let data = UserDefaults.standard
+            data.set(selectedAge, forKey: "age")
+            
+            let vc = WeightInputScreen()
+            navigationController?.pushViewController(vc, animated: true)
+            
+        } else {
+            print("Age not found in the string")
         }
+
+       
+       
         
-        let data = UserDefaults.standard
-        data.set(age, forKey: "age")
-        
-        let vc = WeightInputScreen()
-        navigationController?.pushViewController(vc, animated: true)
+     
     }
 }

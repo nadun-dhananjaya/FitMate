@@ -12,181 +12,120 @@ class GenderSelectScreen: UIViewController {
 
     
     var gender : String = ""
-    
-    //UI Comps
-    
-    let progressView : UIProgressView = {
-        let progressView = UIProgressView(progressViewStyle: .bar)
-        progressView.setProgress(1/6, animated: true)
-        progressView.trackTintColor = UIColor(red: 217/255, green: 217/255, blue: 217/255, alpha: 1.0)
-        progressView.progressTintColor = UIColor(red: 69/255, green: 90/255, blue: 100/255, alpha: 1.0)
-        return progressView
-    }()
-    
-    let labelOne : UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = .systemFont(ofSize: 14, weight: .semibold)
-        label.textColor = UIColor(red: 140/255, green: 140/255, blue: 140/255, alpha: 1.0)
-        label.text = "Step 1/6"
-        label.textAlignment = .center
-        return label
-    }()
-    
-    let labelTwo : UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = .systemFont(ofSize: 26, weight: .thin)
-        label.text = "Let’s get to know you better"
-        label.textAlignment = .center
-        return label
-    }()
-    
+   
+    let genderButtonSelectedColor = UIColor(hexString: "#fff2d9")
 
-    
-    let imageGender: UIImageView = {
-        let imageView = UIImageView(image: UIImage(named: "gender"))
-        imageView.contentMode = .scaleAspectFit
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        return imageView
-    }()
-    
-    let genederSelector : UIStackView = {
-        let stackView = UIStackView();
-        stackView.axis = .horizontal
-        stackView.spacing = 10
-        stackView.distribution = .fillEqually
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        return stackView
-    }()
-    
-    
-    let labelFive : UILabel = {
+    let helloTitleLabel: UILabel = {
         let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = .systemFont(ofSize: 36, weight: .thin)
-        label.text = "I am"
+        label.text = "Hello"
         label.textAlignment = .center
+        label.font = UIFont.boldSystemFont(ofSize: 24)
+        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-    
 
-    
-    let buttonMale : UIButton = {
-        let button = UIButton()
+    let chooseGenderTitleLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Choose Your Gender"
+        label.textAlignment = .center
+        label.font = UIFont.boldSystemFont(ofSize: 20)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+
+    let maleButton: UIButton = {
+        let button = UIButton(type: .custom)
+        button.setImage(UIImage(named: "male"), for: .normal) // Replace "maleIcon" with the actual image for the male button
+        button.imageView?.contentMode = .scaleAspectFit
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("Male", for: .normal)
-        button.titleLabel?.font = .systemFont(ofSize: 32, weight: .semibold)
-        button.backgroundColor = UIColor(red: 157/255, green: 202/255, blue: 239/255, alpha: 1.0)
-        button.layer.cornerRadius = 10
         return button
     }()
-    
-    let buttonFemale : UIButton = {
-        let button = UIButton()
+
+    let femaleButton: UIButton = {
+        let button = UIButton(type: .custom)
+        button.setImage(UIImage(named: "female"), for: .normal) // Replace "femaleIcon" with the actual image for the female button
+        button.imageView?.contentMode = .scaleAspectFit
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("Female", for: .normal)
-        button.titleLabel?.font = .systemFont(ofSize: 32, weight: .semibold)
-        button.backgroundColor =  UIColor(red: 253/255, green: 187/255, blue: 211/255, alpha: 1.0)
-        button.layer.cornerRadius = 10
         return button
     }()
-    
-    let buttonContinue : UIButton = {
-        let button = UIButton()
-        button.translatesAutoresizingMaskIntoConstraints = false
+
+    let nextButton: UIButton = {
+        let button = UIButton(type: .roundedRect)
         button.setTitle("Next", for: .normal)
-        button.titleLabel?.font = .systemFont(ofSize: 20, weight: .semibold)
-        button.backgroundColor = UIColor(red: 69/255, green: 90/255, blue: 100/255, alpha: 1.0)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.backgroundColor = .orange
+        button.setTitleColor(.white, for: .normal)
+        button.titleLabel?.font = .systemFont(ofSize: 16, weight: .semibold)
         button.layer.cornerRadius = 10
         return button
     }()
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         setupUI()
+        setupConstraints()
     }
     
-    func setupUI(){
+    func setupUI() {
         view.backgroundColor = .white
-        view.addSubview(progressView)
-        view.addSubview(labelOne)
-        view.addSubview(labelTwo)
-        view.addSubview(imageGender)
-        view.addSubview(labelFive)
-        view.addSubview(genederSelector)
-        view.addSubview(buttonContinue)
         
-        genederSelector.addArrangedSubview(buttonMale)
-        genederSelector.addArrangedSubview(buttonFemale)
 
-        progressView.frame = CGRect(x: (view.frame.size.width)/8, y: 100, width: view.frame.size.width-100, height: 20)
-        
-        //Button Actions
-        
-        buttonMale.addTarget(self, action: #selector(propMale), for: .touchUpInside)
-        buttonFemale.addTarget(self, action: #selector(propFemale), for: .touchUpInside)
-        buttonContinue.addTarget(self, action: #selector(getNext), for: .touchUpInside)
-        
-        //Constraints
+        view.addSubview(helloTitleLabel)
+        view.addSubview(chooseGenderTitleLabel)
+        view.addSubview(maleButton)
+        view.addSubview(femaleButton)
+        view.addSubview(nextButton)
+        maleButton.addTarget(self, action: #selector(maleButtonTapped), for: .touchUpInside)
+        femaleButton.addTarget(self, action: #selector(femaleButtonTapped), for: .touchUpInside)
+        nextButton.addTarget(self, action: #selector(getNext), for: .touchUpInside)
+
+        maleButton.backgroundColor = .clear
+        femaleButton.backgroundColor = .clear
+    }
+
+    func setupConstraints() {
+        let safeArea = view.safeAreaLayoutGuide
         
         NSLayoutConstraint.activate([
-            labelOne.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
-            labelOne.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-            labelOne.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+         
+            helloTitleLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 100),
+            helloTitleLabel.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor),
+            helloTitleLabel.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor),
             
-            labelTwo.topAnchor.constraint(equalTo: labelOne.bottomAnchor, constant: 20),
-            labelTwo.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
-            labelTwo.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
-            labelTwo.heightAnchor.constraint(equalToConstant: 40),
+            chooseGenderTitleLabel.topAnchor.constraint(equalTo: helloTitleLabel.bottomAnchor, constant: 20),
+            chooseGenderTitleLabel.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor),
+            chooseGenderTitleLabel.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor),
             
-          
+            maleButton.topAnchor.constraint(equalTo: chooseGenderTitleLabel.bottomAnchor, constant: 100),
+            maleButton.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor),
+            maleButton.widthAnchor.constraint(equalTo: safeArea.widthAnchor, multiplier: 0.5),
+            maleButton.heightAnchor.constraint(equalToConstant: 200),
             
-            imageGender.topAnchor.constraint(equalTo: labelTwo.bottomAnchor,constant: 120),
-            imageGender.heightAnchor.constraint(equalToConstant: 180),
-            imageGender.widthAnchor.constraint(equalToConstant: 180),
-            imageGender.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            femaleButton.topAnchor.constraint(equalTo: chooseGenderTitleLabel.bottomAnchor, constant: 100),
+            femaleButton.leadingAnchor.constraint(equalTo: maleButton.trailingAnchor),
+            femaleButton.widthAnchor.constraint(equalTo: safeArea.widthAnchor, multiplier: 0.5),
+            femaleButton.heightAnchor.constraint(equalToConstant: 200),
             
-            labelFive.topAnchor.constraint(equalTo: imageGender.bottomAnchor, constant: 20),
-            labelFive.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-            labelFive.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
-            labelFive.heightAnchor.constraint(equalToConstant: 40),
-            
-        
-            
-            genederSelector.topAnchor.constraint(equalTo: labelFive.bottomAnchor, constant: 35),
-            genederSelector.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
-            genederSelector.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
-            genederSelector.heightAnchor.constraint(equalToConstant: 65),
-      
-
-            buttonContinue.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -40),
-            buttonContinue.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            buttonContinue.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
-            buttonContinue.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
-            buttonContinue.heightAnchor.constraint(equalToConstant: 55),
+            nextButton.topAnchor.constraint(equalTo: view.bottomAnchor, constant: -150),
+            nextButton.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 20),
+            nextButton.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -20),
+            nextButton.heightAnchor.constraint(equalToConstant: 60),
         ])
     }
     
-    //Button action functions
-    
-    @objc func propMale(){
-        buttonMale.backgroundColor = UIColor(red: 60/255, green: 148/255, blue: 223/255, alpha: 1.0)
-        buttonFemale.backgroundColor = UIColor(red: 253/255, green: 187/255, blue: 211/255, alpha: 1.0)
-        
+    @objc func maleButtonTapped() {
+        maleButton.backgroundColor = genderButtonSelectedColor
+        femaleButton.backgroundColor = .clear
         gender = "Male"
-    
     }
-    
-    @objc func propFemale(){
-        buttonFemale.backgroundColor = UIColor(red: 250/255, green: 119/255, blue: 168/255, alpha: 1.0)
-        buttonMale.backgroundColor = UIColor(red: 157/255, green: 202/255, blue: 239/255, alpha: 1.0)
-        
-        gender = "Female"
 
+    @objc func femaleButtonTapped() {
+        femaleButton.backgroundColor = genderButtonSelectedColor
+        maleButton.backgroundColor = .clear
+        gender = "Female"
     }
-    
  
     @objc func getNext(){
         if gender.isEmpty {
@@ -195,16 +134,42 @@ class GenderSelectScreen: UIViewController {
             alert.addAction(okAction)
             present(alert, animated: true, completion: nil)
         } else {
-           
+            
             let data = UserDefaults.standard
             data.set(gender, forKey: "gender")
             
             let vc = AgeSelectScreen()
             navigationController?.pushViewController(vc, animated: true)
         }
-        
-     
     }
-
-
 }
+
+extension UIColor {
+    convenience init?(hexString: String) {
+        let r, g, b: CGFloat
+        var hexColor = hexString
+        
+        if hexColor.hasPrefix("#") {
+            let start = hexColor.index(hexColor.startIndex, offsetBy: 1)
+            hexColor = String(hexColor[start...])
+        }
+        
+        if hexColor.count != 6 {
+            return nil
+        }
+        
+        let scanner = Scanner(string: hexColor)
+        var hexNumber: UInt64 = 0
+        
+        if scanner.scanHexInt64(&hexNumber) {
+            r = CGFloat((hexNumber & 0xFF0000) >> 16) / 255
+            g = CGFloat((hexNumber & 0x00FF00) >> 8) / 255
+            b = CGFloat(hexNumber & 0x0000FF) / 255
+            
+            self.init(red: r, green: g, blue: b, alpha: 1)
+        } else {
+            return nil
+        }
+    }
+}
+
