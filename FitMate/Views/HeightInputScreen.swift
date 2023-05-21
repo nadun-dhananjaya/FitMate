@@ -7,231 +7,186 @@
 
 import UIKit
 import SwiftKeychainWrapper
+import LKRulerPicker
 
-class HeightInputScreen: UIViewController {
+class HeightInputScreen: UIViewController, LKRulerPickerDataSource, LKRulerPickerDelegate {
 
-   
-    //Var
+    var weight : String = "156 cm"
+    func rulerPicker(_ picker: LKRulerPicker, didSelectItemAtIndex index: Int) {
+        weight = rulerPicker(picker, highlightTitleForIndex: index) ?? ""
+        print(weight)
+      }
     
-    var heightNumber : String = ""
-    var type : String     = ""
-    var finalHeigh : String  = ""
     
-    //UI Comps
+    func rulerPicker(_ picker: LKRulerPicker, titleForIndex index: Int) -> String? {
+        guard index % picker.configuration.metrics.divisions == 0 else { return nil }
+               switch picker {
+               case weightPicker:
+                   return "\(picker.configuration.metrics.minimumValue + index) "
+               default:
+                   fatalError("Handler picker")
+               }
+    }
+    
+    func rulerPicker(_ picker: LKRulerPicker, highlightTitleForIndex index: Int) -> String? {
+        switch picker {
+               case weightPicker:
+                   return "\(picker.configuration.metrics.minimumValue + index) cm"
+            
+               default:
+                   fatalError("Handler picker")
+               }
+    }
+    
+
     
     let progressView : UIProgressView = {
         let progressView = UIProgressView(progressViewStyle: .bar)
-        progressView.setProgress(4/6, animated: true)
+        progressView.setProgress(2/6, animated: true)
         progressView.trackTintColor = UIColor(red: 217/255, green: 217/255, blue: 217/255, alpha: 1.0)
         progressView.progressTintColor = UIColor(red: 69/255, green: 90/255, blue: 100/255, alpha: 1.0)
         return progressView
     }()
     
-    let stepCountLabel : UILabel = {
+    
+    let weightTitleLabel: UILabel = {
         let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = .systemFont(ofSize: 14, weight: .semibold)
-        label.textColor = UIColor(red: 140/255, green: 140/255, blue: 140/255, alpha: 1.0)
-        label.text = "Step 4/6"
+        label.text = "Select Your Height"
         label.textAlignment = .center
+        label.font = UIFont.boldSystemFont(ofSize: 24)
+        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-    
-    let titleLabel : UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = .systemFont(ofSize: 26, weight: .thin)
-        label.text = "What's your height ?"
-        label.textAlignment = .center
-        return label
-    }()
-    
-    let imageAge: UIImageView = {
-        let imageView = UIImageView(image: UIImage(named: "height"))
+
+    let personImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = UIImage(named: "woman")
         imageView.contentMode = .scaleAspectFit
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
 
     
-    let IamLabel : UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = .systemFont(ofSize: 36, weight: .thin)
-        label.text = "I am"
-        label.textAlignment = .center
-        return label
-    }()
-    
-   
-    
-    let heightTextField : UITextField = {
-        let textField = UITextField()
-        textField.translatesAutoresizingMaskIntoConstraints = false
-        textField.borderStyle = .roundedRect
-        textField.placeholder = "120"
-        textField.textAlignment = .center
-        textField.keyboardType = .numberPad
-        textField.font = .systemFont(ofSize: 36, weight: .semibold)
-        textField.backgroundColor = .white
-        textField.layer.borderWidth = 1.0
-        textField.layer.cornerRadius = 10
-        textField.textColor = .black
-        return textField
-    }()
-    
-    let buttonCM : UIButton = {
-        let button = UIButton()
+    private lazy var weightPicker: LKRulerPicker = {
+        $0.dataSource = self
+        $0.delegate = self
+        $0.tintColor = UIColor.black.withAlphaComponent(0.5)
+        $0.highlightLineColor = .black
+        $0.highlightTextColor = .black
+        $0.translatesAutoresizingMaskIntoConstraints = false
+
+        return $0
+    }(LKRulerPicker())
+
+    let nextButton: UIButton = {
+        let button = UIButton(type: .roundedRect)
+        button.setTitle("Next", for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("cm", for: .normal)
-        button.titleLabel?.font = .systemFont(ofSize: 28, weight: .bold)
-        button.backgroundColor = UIColor(red: 204/255, green: 190/255, blue: 248/255, alpha: 1.0)
-        button.titleLabel?.textColor = .white
+        button.backgroundColor = .orange
+        button.setTitleColor(.white, for: .normal)
+        button.titleLabel?.font = .systemFont(ofSize: 16, weight: .semibold)
         button.layer.cornerRadius = 10
         return button
     }()
-    
-    let buttonFt : UIButton = {
-        let button = UIButton()
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("ft", for: .normal)
-        button.titleLabel?.font = .systemFont(ofSize: 28, weight: .bold)
-        button.backgroundColor = UIColor(red: 204/255, green: 190/255, blue: 248/255, alpha: 1.0)
-        button.titleLabel?.textColor = .white
-        button.layer.cornerRadius = 10
-        return button
-    }()
-    
-    let hStack : UIStackView = {
-        let stack = UIStackView()
-        stack.translatesAutoresizingMaskIntoConstraints = false
-        stack.axis = .horizontal
-        stack.spacing = 3
-        return stack
-    }()
-    
-    let buttonContinue : UIButton = {
-        let button = UIButton()
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("Continue", for: .normal)
-        button.titleLabel?.font = .systemFont(ofSize: 20, weight: .semibold)
-        button.backgroundColor = UIColor(red: 69/255, green: 90/255, blue: 100/255, alpha: 1.0)
-        button.layer.cornerRadius = 10
-        return button
-    }()
+
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         setupUI()
+        setupConstraints()
     }
     
-    func setupUI(){
+    func setupUI() {
         view.backgroundColor = .white
         view.addSubview(progressView)
-        view.addSubview(stepCountLabel)
-        view.addSubview(titleLabel)
-        view.addSubview(imageAge)
-        view.addSubview(IamLabel)
-        view.addSubview(heightTextField)
+
+        view.addSubview(weightTitleLabel)
+        view.addSubview(personImageView)
+        view.addSubview(weightPicker)
+        view.addSubview(nextButton)
         
-        hStack.addArrangedSubview(buttonCM)
-        hStack.addArrangedSubview(buttonFt)
-        
-        view.addSubview(hStack)
-        view.addSubview(buttonContinue)
+     
         
         progressView.frame = CGRect(x: (view.frame.size.width)/8, y: 100, width: view.frame.size.width-100, height: 20)
+
+        let heightMetrics = LKRulerPickerConfiguration.Metrics(
+                    minimumValue: 100,
+                    defaultValue: 138,
+                    maximumValue: 200,
+                    divisions: 5,
+                    fullLineSize: 38,
+                    midLineSize: 28,
+                    smallLineSize: 28)
         
-        //Button actions
+        weightPicker.configuration = LKRulerPickerConfiguration(
+                    scrollDirection: .horizontal,
+                    alignment: .end,
+                    metrics: heightMetrics,
+                    isHapticsEnabled: false)
         
-        buttonCM.addTarget(self, action: #selector(btnCM), for: .touchUpInside)
-        buttonFt.addTarget(self, action: #selector(btnFt), for: .touchUpInside)
-        buttonContinue.addTarget(self, action: #selector(getNext), for: .touchUpInside)
+        nextButton.addTarget(self, action: #selector(getNext), for: .touchUpInside)
+
         
-        //Constraints
+        
+    }
+    
+    
+    func setupConstraints() {
+        let safeArea = view.safeAreaLayoutGuide
 
         NSLayoutConstraint.activate([
-            stepCountLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
-            stepCountLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-            stepCountLabel.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-            
-            titleLabel.topAnchor.constraint(equalTo: stepCountLabel.bottomAnchor, constant: 20),
-            titleLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
-            titleLabel.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
-            titleLabel.heightAnchor.constraint(equalToConstant: 40),
-            
-            imageAge.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 20),
-            imageAge.heightAnchor.constraint(equalToConstant: 240),
-            imageAge.widthAnchor.constraint(equalToConstant: 240),
-            imageAge.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            
-            IamLabel.topAnchor.constraint(equalTo: imageAge.bottomAnchor, constant: 20),
-            IamLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-            IamLabel.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -180),
-            IamLabel.heightAnchor.constraint(equalToConstant: 55),
-            
-            
-            heightTextField.topAnchor.constraint(equalTo: imageAge.bottomAnchor, constant: 27),
-            heightTextField.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 180),
-            heightTextField.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -100),
-            heightTextField.heightAnchor.constraint(equalToConstant: 55),
-            heightTextField.widthAnchor.constraint(equalToConstant: 103),
-            
-            hStack.topAnchor.constraint(equalTo: heightTextField.bottomAnchor, constant: 40),
-            hStack.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            
-            buttonCM.heightAnchor.constraint(equalToConstant: 56),
-            buttonCM.widthAnchor.constraint(equalToConstant: 120),
-            buttonFt.heightAnchor.constraint(equalToConstant: 56),
-            buttonFt.widthAnchor.constraint(equalToConstant: 120),
-            
-            buttonContinue.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -40),
-            buttonContinue.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            buttonContinue.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
-            buttonContinue.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
-            buttonContinue.heightAnchor.constraint(equalToConstant: 55),
+          
+            progressView.topAnchor.constraint(equalTo: safeArea.topAnchor, constant: 50),
+            progressView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 20),
+            progressView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -20),
+
+            weightTitleLabel.topAnchor.constraint(equalTo: progressView.bottomAnchor, constant: 50),
+            weightTitleLabel.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor),
+            weightTitleLabel.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor),
+
+
+            personImageView.topAnchor.constraint(equalTo: weightTitleLabel.bottomAnchor, constant: 20),
+            personImageView.centerXAnchor.constraint(equalTo: safeArea.centerXAnchor),
+            personImageView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor),
+            personImageView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor),
+            personImageView.heightAnchor.constraint(equalToConstant: 250),
+
+            weightPicker.topAnchor.constraint(equalTo: personImageView.bottomAnchor, constant: 20),
+            weightPicker.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor),
+            weightPicker.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor),
+            weightPicker.heightAnchor.constraint(equalToConstant: 100),
+
+            nextButton.topAnchor.constraint(equalTo: view.bottomAnchor, constant: -150),
+            nextButton.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 20),
+            nextButton.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -20),
+            nextButton.heightAnchor.constraint(equalToConstant: 60),
         ])
     }
     
-    @objc func btnCM(){
-        buttonCM.backgroundColor = UIColor(red: 182/255, green: 162/255, blue: 245/255, alpha: 1.0)
-        buttonCM.backgroundColor = UIColor(red: 204/255, green: 190/255, blue: 248/255, alpha: 1.0)
-        
-        type = "kg"
-    }
-    
-    @objc func btnFt(){
-        buttonFt.backgroundColor = UIColor(red: 182/255, green: 162/255, blue: 245/255, alpha: 1.0)
-        buttonFt.backgroundColor = UIColor(red: 204/255, green: 190/255, blue: 248/255, alpha: 1.0)
-        
-        type = "lbs"
-    }
-    
-    func setDB(){
-        let saveSuccessful: Bool = KeychainWrapper.standard.set(heightNumber, forKey: "height")
-    }
-    
-    //button action
     
     @objc func getNext(){
 
-        guard let heightString = heightTextField.text, let height = Int(heightString), height >= 0 && !(heightString.isEmpty) else {
-            let alert = UIAlertController(title: "Invalid Height", message: "Please enter a valid height.", preferredStyle: .alert)
-            let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-            alert.addAction(okAction)
-            present(alert, animated: true, completion: nil)
-            return
+        let weightString = weight
+
+        if let ageRange = weightString.range(of: #"(\d+)"#, options: .regularExpression) {
+            let selectedWeight = Int(weightString[ageRange])
+            
+            print(selectedWeight!)
+           
+            let data = UserDefaults.standard
+            data.set(selectedWeight, forKey: "height")
+            
+            let vc = ExerciseLevelScreen()
+            navigationController?.pushViewController(vc, animated: true)
+            
+        } else {
+            print("Weight not found in the string")
         }
-        
-        
-       
-        let data = UserDefaults.standard
-        data.set(height, forKey: "height")
-        
-        
-        let vc = ExerciseLevelScreen()
-        navigationController?.pushViewController(vc, animated: true)
+
+    
+     
     }
 
 

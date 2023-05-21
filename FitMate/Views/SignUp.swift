@@ -242,7 +242,6 @@ class SignUp: UIViewController {
                       }
                     
                 
-                    
                     // Process the response JSON here
                 } catch {
                     print("Error decoding response JSON: \(error)")
