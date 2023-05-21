@@ -14,7 +14,7 @@ class ExerciseComponent: UICollectionViewCell {
         
             exerciseImage.load(urlString: exerciseData.imageurl)
             exerciseName.text = exerciseData.exerciseName
-            repCount.text = String(exerciseData.repCount)
+            repCount.text = String(exerciseData.repCount) + " Reps"
         }
         
         private let exerciseImage : UIImageView = {
@@ -27,7 +27,7 @@ class ExerciseComponent: UICollectionViewCell {
         private let exerciseName : UILabel = {
             let label = UILabel()
             label.translatesAutoresizingMaskIntoConstraints = false
-            label.font = .systemFont(ofSize: 16, weight: .bold)
+            label.font = .systemFont(ofSize: 20, weight: .bold)
             label.textAlignment = .left
             label.textColor = .black
             return label
@@ -36,7 +36,7 @@ class ExerciseComponent: UICollectionViewCell {
     private let repCount : UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = .systemFont(ofSize: 14, weight: .regular)
+        label.font = .systemFont(ofSize: 16, weight: .regular)
         label.textAlignment = .left
         label.textColor = .black
         return label
@@ -62,7 +62,7 @@ class ExerciseComponent: UICollectionViewCell {
             
             exerciseName.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10).isActive = true
             exerciseName.leadingAnchor.constraint(equalTo: exerciseImage.trailingAnchor,constant: 10).isActive = true
-            exerciseName.heightAnchor.constraint(equalToConstant: 40).isActive = true
+            exerciseName.heightAnchor.constraint(equalToConstant: 20).isActive = true
          
 
 

@@ -1,17 +1,17 @@
 //
-//  HomeScreen.swift
+//  ExerciseFinishView.swift
 //  FitMate
 //
-//  Created by Nadun Dhananjaya on 2023-05-20.
+//  Created by Nadun Dhananjaya on 2023-05-21.
 //
 
 import UIKit
 
-class HomeScreen: UIViewController {
+class ExerciseFinishView: UIViewController {
 
     private let titleLabel: UILabel = {
            let label = UILabel()
-           label.text = "Welcome to Fitmate"
+           label.text = "Congratulation"
            label.font = UIFont.boldSystemFont(ofSize: 24)
            label.textAlignment = .center
            label.translatesAutoresizingMaskIntoConstraints = false
@@ -20,7 +20,7 @@ class HomeScreen: UIViewController {
        
        private let descriptionLabel: UILabel = {
            let label = UILabel()
-           label.text = "Get fit and stay healthy"
+           label.text = "You have successfull finished !!"
            label.font = UIFont.systemFont(ofSize: 18)
            label.textAlignment = .center
            label.translatesAutoresizingMaskIntoConstraints = false
@@ -29,7 +29,7 @@ class HomeScreen: UIViewController {
        
        private let startButton: UIButton = {
            let button = UIButton()
-           button.setTitle("See Today Workout", for: .normal)
+           button.setTitle("Finish", for: .normal)
            button.setTitleColor(.white, for: .normal)
            button.backgroundColor = .orange
            button.layer.cornerRadius = 8
@@ -88,9 +88,38 @@ class HomeScreen: UIViewController {
     
     
     @objc func getExerciseList() {
-        let vc = ExerciseListScreen()
-        navigationController?.pushViewController(vc, animated: true)
-    }
-
+        let tabBarController = UITabBarController()
+        
+        
+        
+        let home = UINavigationController(rootViewController: HomeScreen())
+        let schedule = UINavigationController(rootViewController: ScheduleView())
+//        let progress = UINavigationController(rootViewController: viewProgress())
+//        let profile = UINavigationController(rootViewController: viewProfile())
+        
+        home.title = "Home"
+        schedule.title = "Schedule"
+//        progress.title = "Progress"
+//        profile.title = "Profile"
+        
+        tabBarController.setViewControllers([home,schedule], animated: false)
+        
+        guard let items = tabBarController.tabBar.items else {
+            return
+        }
+        
+        let images = ["house","calendar","chart.xyaxis.line","person.crop.circle"]
     
+        for x in 0..<items.count {
+            items[x].image = UIImage(systemName: images[x])
+            items[x].badgeColor = UIColor.orange
+        }
+        
+        let tabBarAppearance = UITabBar.appearance()
+        tabBarAppearance.backgroundColor = .white
+        tabBarAppearance.tintColor = .orange
+        
+        tabBarController.modalPresentationStyle = .fullScreen
+        present(tabBarController, animated: false)
+    }
 }

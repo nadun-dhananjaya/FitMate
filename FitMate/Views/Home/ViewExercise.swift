@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import WebKit
 
 class ViewExercise:  UIViewController, UIPageViewControllerDataSource, UIPageViewControllerDelegate {
     
@@ -15,7 +16,18 @@ class ViewExercise:  UIViewController, UIPageViewControllerDataSource, UIPageVie
     
     private var exerciseList = [ExeriseData]()
 
+    
+    private var stopwatch: Timer?
+    private var stopwatchStartTime: Date?
 
+  
+
+
+
+    private var stopwatchLabel: UILabel!
+
+   
+    
     
     func getExercises(){
            fetchData(){result in
@@ -58,6 +70,7 @@ class ViewExercise:  UIViewController, UIPageViewControllerDataSource, UIPageVie
         setupPageViewController()
         setupPageControl()
         setupConstraints()
+       
             
         }
         
@@ -179,55 +192,124 @@ class ViewExercise:  UIViewController, UIPageViewControllerDataSource, UIPageVie
         }
     
     
-    private func viewController(at index: Int) -> UIViewController? {
-        guard index >= 0 && index < exerciseList.count else {
-            return nil
-        }
-        
-        let viewController = UIViewController()
-        
-      
-        let imageView = UIImageView()
-        imageView.load(urlString: exerciseList[index].imageurl)
-        imageView.contentMode = .scaleAspectFit
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        viewController.view.addSubview(imageView)
-        
-        let titleLabel = UILabel()
-        titleLabel.text = exerciseList[index].exerciseName
-        titleLabel.font = UIFont.boldSystemFont(ofSize: 24)
-        titleLabel.textAlignment = .center
-        titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        viewController.view.addSubview(titleLabel)
-        
-        let nextButton = UIButton(type: .system)
-        nextButton.setTitle("Next", for: .normal)
-        nextButton.addTarget(self, action: #selector(nextButtonTapped), for: .touchUpInside)
-        nextButton.translatesAutoresizingMaskIntoConstraints = false
-        viewController.view.addSubview(nextButton)
-        
-        NSLayoutConstraint.activate([
-            imageView.centerXAnchor.constraint(equalTo: viewController.view.centerXAnchor),
-            imageView.centerYAnchor.constraint(equalTo: viewController.view.centerYAnchor),
-            imageView.widthAnchor.constraint(equalTo: viewController.view.widthAnchor, multiplier: 0.8),
-            imageView.heightAnchor.constraint(equalTo: imageView.widthAnchor),
+
+    
+    
+
+        private func viewController(at index: Int) -> UIViewController? {
+            guard index >= 0 && index < exerciseList.count else {
+                return nil
+            }
             
-            titleLabel.centerXAnchor.constraint(equalTo: viewController.view.centerXAnchor),
-            titleLabel.bottomAnchor.constraint(equalTo: imageView.topAnchor, constant: 20),
             
-            nextButton.centerXAnchor.constraint(equalTo: viewController.view.centerXAnchor),
-            nextButton.bottomAnchor.constraint(equalTo: viewController.view.bottomAnchor, constant: -100)
-        ])
+            
+            let viewController = UIViewController()
+            
+            let titleLabel = UILabel()
+            titleLabel.text = exerciseList[index].exerciseName
+            titleLabel.font = UIFont.boldSystemFont(ofSize: 24)
+            titleLabel.textAlignment = .center
+            titleLabel.translatesAutoresizingMaskIntoConstraints = false
+            viewController.view.addSubview(titleLabel)
+            
+            let imageView = UIImageView()
+            imageView.load(urlString: exerciseList[index].imageurl)
+            imageView.contentMode = .scaleAspectFit
+            imageView.translatesAutoresizingMaskIntoConstraints = false
+            viewController.view.addSubview(imageView)
+            
+            let webView = WKWebView(frame: .zero)
+            webView.translatesAutoresizingMaskIntoConstraints = false
+            viewController.view.addSubview(webView)
         
-        return viewController
+         
+            stopwatchLabel = UILabel()
+
+            stopwatchLabel.text = "00:00:00" // Initial countdown value
+            stopwatchLabel.font = UIFont.systemFont(ofSize: 24)
+            stopwatchLabel.textAlignment = .center
+            stopwatchLabel.translatesAutoresizingMaskIntoConstraints = false
+            stopwatchLabel.textColor = .black
+           
+            
+            let youtubeVideoURLString = exerciseList[index].videourl
+            let youtubeEmbedURLString = "https://www.youtube.com/embed/\(extractYouTubeVideoID(from: youtubeVideoURLString))"
+            let htmlString = "<html><body><iframe width=\"100%\" height=\"100%\" src=\"\(youtubeEmbedURLString)?playsinline=1\" frameborder=\"0\" allowfullscreen></iframe></body></html>"
+            
+            webView.loadHTMLString(htmlString, baseURL: nil)
+            
+            viewController.view.addSubview(stopwatchLabel)
+            
+            let nextButton = UIButton(type: .system)
+            nextButton.setTitle("Next", for: .normal)
+            nextButton.addTarget(self, action: #selector(nextButtonTapped), for: .touchUpInside)
+            nextButton.translatesAutoresizingMaskIntoConstraints = false
+            viewController.view.addSubview(nextButton)
+            
+            startStopwatch()
+            
+            
+            NSLayoutConstraint.activate([
+                titleLabel.topAnchor.constraint(equalTo: viewController.view.topAnchor, constant: 100),
+                titleLabel.leadingAnchor.constraint(equalTo: viewController.view.leadingAnchor),
+                titleLabel.trailingAnchor.constraint(equalTo: viewController.view.trailingAnchor),
+                
+                imageView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 20),
+                imageView.leadingAnchor.constraint(equalTo: viewController.view.leadingAnchor),
+                imageView.trailingAnchor.constraint(equalTo: viewController.view.trailingAnchor),
+                imageView.heightAnchor.constraint(equalToConstant: 200),
+                
+                webView.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 20),
+                webView.leadingAnchor.constraint(equalTo: viewController.view.leadingAnchor),
+                webView.trailingAnchor.constraint(equalTo: viewController.view.trailingAnchor),
+                webView.heightAnchor.constraint(equalToConstant: 200),
+                
+                stopwatchLabel.topAnchor.constraint(equalTo: webView.bottomAnchor, constant: 60),
+                stopwatchLabel.leadingAnchor.constraint(equalTo: viewController.view.leadingAnchor),
+                stopwatchLabel.trailingAnchor.constraint(equalTo: viewController.view.trailingAnchor),
+                      
+    
+                
+                nextButton.centerXAnchor.constraint(equalTo: viewController.view.centerXAnchor),
+                nextButton.bottomAnchor.constraint(equalTo: viewController.view.bottomAnchor, constant: -50)
+            ])
+            
+           
+            return viewController
+        
     }
 
-    @objc private func nextButtonTapped() {
-//        guard let currentViewController = pageViewController.viewControllers?.first,
-//             currentIndex = indexOf(currentViewController) else {
-//            return
-//        }
+    @objc private func startStopwatch() {
+        stopwatchStartTime = Date()
+        stopwatch = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(updateStopwatch), userInfo: nil, repeats: true)
+    }
+
+    @objc private func stopStopwatch() {
+        stopwatch?.invalidate()
+        stopwatch = nil
+        stopwatchStartTime = nil
+    }
+
+    @objc private func updateStopwatch() {
+        guard let startTime = stopwatchStartTime else {
+            return
+        }
         
+        let elapsedTime = Date().timeIntervalSince(startTime)
+        let stopwatchText = formatStopwatchText(elapsedTime)
+        stopwatchLabel.text = stopwatchText
+    }
+
+    private func formatStopwatchText(_ elapsedTime: TimeInterval) -> String {
+        let hours = Int(elapsedTime / 3600)
+        let minutes = Int((elapsedTime / 60).truncatingRemainder(dividingBy: 60))
+        let seconds = Int(elapsedTime.truncatingRemainder(dividingBy: 60))
+        
+        return String(format: "%02d:%02d:%02d", hours, minutes, seconds)
+    }
+    
+    
+    @objc private func nextButtonTapped() {
     
         
         currentIndex = currentIndex + 1
@@ -238,8 +320,11 @@ class ViewExercise:  UIViewController, UIPageViewControllerDataSource, UIPageVie
        
         } else {
             pageViewController.setViewControllers([viewController(at: 0)!], direction: .forward, animated: true, completion: nil)
-            pageControl.currentPage = 0
-            currentIndex = 0        }
+            
+            let vc = ExerciseFinishView()
+            navigationController?.pushViewController(vc, animated: true)
+            
+        }
     }
 
     private func indexOf(_ viewController: UIViewController) -> Int? {
@@ -250,4 +335,14 @@ class ViewExercise:  UIViewController, UIPageViewControllerDataSource, UIPageVie
         return viewControllers.firstIndex(of: viewController)
     }
 
+    
+    func extractYouTubeVideoID(from urlString: String) -> String {
+        if let url = URL(string: urlString),
+           let queryItems = URLComponents(url: url, resolvingAgainstBaseURL: true)?.queryItems {
+            return queryItems.first(where: { $0.name == "v" })?.value ?? ""
+        }
+        return ""
+    }
+    
+    
 }

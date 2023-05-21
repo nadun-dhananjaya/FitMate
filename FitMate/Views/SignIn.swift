@@ -10,210 +10,116 @@ import UIKit
 class SignIn: UIViewController {
 
    
-    // Create a vertical stack view
-    var stackView : UIStackView =  {
-        let stackView = UIStackView()
-        stackView.backgroundColor = .white
-        stackView.axis = .vertical
-        stackView.distribution = .fillEqually
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        return stackView;
-    }()
-           
-
-    let headerView : UIView = {
-        let view = UIView()
-        view.backgroundColor = .white
-        return view
-    }()
-    
-    let bodyView : UIView = {
-        let view = UIView()
-        view.backgroundColor = .white
-        return view
-    }()
-    
-    let bodyVStack : UIStackView = {
-        let stackView = UIStackView();
-        stackView.axis = .vertical
-        stackView.spacing = 30
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        return stackView
-    }()
-    
-    let footerView : UIView = {
-        let view = UIView()
-        view.backgroundColor = .white
-        return view
-    }()
-
-
-    
-    
-    let emailVStack : UIStackView = {
-        let stackView = UIStackView();
-        stackView.axis = .vertical
-        stackView.spacing = 10
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        return stackView
-    }()
-    
-    let passwordVStack : UIStackView = {
-        let stackView = UIStackView();
-        stackView.axis = .vertical
-        stackView.spacing = 10
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        return stackView
-    }()
-    
-    let emailLabel : UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = .systemFont(ofSize: 14, weight: .thin)
-        label.text = "Email"
-        label.textAlignment = .left
-        return label
-    }()
-    
-    let passwordLabel : UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = .systemFont(ofSize: 14, weight: .thin)
-        label.text = "Password"
-        label.textAlignment = .left
-        return label
-    }()
-    
-    let emailTextField : UITextField = {
-        let textField = UITextField()
-        textField.translatesAutoresizingMaskIntoConstraints = false
-        textField.borderStyle = .roundedRect
-        textField.placeholder = "email@gmail.com"
-        textField.textAlignment = .left
-        textField.keyboardType = .default
-        textField.font = .systemFont(ofSize: 14, weight: .regular)
-        textField.backgroundColor = .white
-        textField.layer.borderWidth = 1.0
-        textField.layer.cornerRadius = 10
-        textField.textColor = .black
-        return textField
-    }()
-    
-    
-    let passwordTextField : UITextField = {
-        let textField = UITextField()
-        textField.translatesAutoresizingMaskIntoConstraints = false
-        textField.borderStyle = .roundedRect
-        textField.placeholder = "25"
-        textField.textAlignment = .left
-        textField.keyboardType = .default
-        textField.font = .systemFont(ofSize: 14, weight: .regular)
-        textField.backgroundColor = .white
-        textField.layer.borderWidth = 1.0
-        textField.layer.cornerRadius = 10
-        textField.textColor = .black
-        return textField
-    }()
     
 
-    
-    let AppHeader : UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = .monospacedSystemFont(ofSize: 32, weight: .thin)
-        label.text = "Sign In"
-        label.textAlignment = .center
-        return label
-    }()
-  
-    
-    let logo: UIImageView = {
-        let imageView = UIImageView(image: UIImage(named: "fitnessApp"))
+    let logoImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = UIImage(named: "fitnessApp") // Replace "logo" with the actual name of your logo image
         imageView.contentMode = .scaleAspectFit
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
     
-    let btnLogin : UIButton = {
-        let button = UIButton()
-        button.translatesAutoresizingMaskIntoConstraints = false
+    let titleLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Make Yourself"
+        label.textAlignment = .left
+        label.font = UIFont.boldSystemFont(ofSize: 50)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
+    let fitLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Fit"
+        label.textAlignment = .left
+        label.font = UIFont.boldSystemFont(ofSize: 40)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
+    let usernameTextField: UITextField = {
+        let textField = UITextField()
+        textField.placeholder = "Username"
+        textField.borderStyle = .roundedRect
+        textField.translatesAutoresizingMaskIntoConstraints = false
+        return textField
+    }()
+    
+    let passwordTextField: UITextField = {
+        let textField = UITextField()
+        textField.placeholder = "Password"
+        textField.isSecureTextEntry = true
+        textField.borderStyle = .roundedRect
+        textField.translatesAutoresizingMaskIntoConstraints = false
+        return textField
+    }()
+    
+    let loginButton: UIButton = {
+        let button = UIButton(type: .roundedRect)
         button.setTitle("Login", for: .normal)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.backgroundColor = .orange
+        button.setTitleColor(.white, for: .normal) // Set text color to white
         button.titleLabel?.font = .systemFont(ofSize: 16, weight: .semibold)
-        button.backgroundColor = UIColor(red: 69/255, green: 90/255, blue: 100/255, alpha: 1.0)
         button.layer.cornerRadius = 10
         return button
     }()
     
-
-
-    func setupLayouts(){
-        view.addSubview(stackView)
+    override func viewDidLoad() {
+        super.viewDidLoad()
         
-        stackView.addArrangedSubview(headerView)
-        stackView.addArrangedSubview(bodyView)
-        stackView.addArrangedSubview(footerView)
-
-        NSLayoutConstraint.activate([
-            stackView.topAnchor.constraint(equalTo: view.topAnchor),
-            stackView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            stackView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            stackView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
-        ])
-        
-
-        
-        headerView.addSubview(AppHeader)
-        
-        bodyVStack.addArrangedSubview(logo)
-        bodyVStack.addArrangedSubview(emailVStack)
-        bodyVStack.addArrangedSubview(passwordVStack)
-        
-        emailVStack.addArrangedSubview(emailLabel)
-        emailVStack.addArrangedSubview(emailTextField)
-        passwordVStack.addArrangedSubview(passwordLabel)
-        passwordVStack.addArrangedSubview(passwordTextField)
-        
-        bodyView.addSubview(bodyVStack)
-
+        setupUI()
+        setupConstraints()
+    }
     
-        footerView.addSubview(btnLogin)
+    func setupUI() {
+        view.backgroundColor = .white
         
-//        btnGetStarted.addTarget(self, action: #selector(getStarted), for: .touchUpInside)
-
+        view.addSubview(logoImageView)
+        view.addSubview(titleLabel)
+        view.addSubview(fitLabel)
+        view.addSubview(usernameTextField)
+        view.addSubview(passwordTextField)
+        view.addSubview(loginButton)
+    }
+    
+    func setupConstraints() {
+        let safeArea = view.safeAreaLayoutGuide
         
         NSLayoutConstraint.activate([
+            logoImageView.topAnchor.constraint(equalTo: safeArea.topAnchor, constant: 50),
+            logoImageView.centerXAnchor.constraint(equalTo: safeArea.centerXAnchor),
+            logoImageView.heightAnchor.constraint(equalToConstant: 150),
+            logoImageView.widthAnchor.constraint(equalToConstant: 150),
             
-            stackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 0),
-            stackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 0),
-            stackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: 0),
-            stackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 0),
+            titleLabel.topAnchor.constraint(equalTo: logoImageView.bottomAnchor, constant: 50),
+            titleLabel.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 20),
+            titleLabel.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor),
             
+            fitLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor),
+            fitLabel.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 20),
+            fitLabel.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor),
             
-            AppHeader.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
-            AppHeader.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
-            AppHeader.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
-            AppHeader.heightAnchor.constraint(equalToConstant: 40),
+            usernameTextField.topAnchor.constraint(equalTo: fitLabel.bottomAnchor, constant: 20),
+            usernameTextField.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 20),
+            usernameTextField.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -20),
+            usernameTextField.heightAnchor.constraint(equalToConstant: 50),
             
-            bodyVStack.leadingAnchor.constraint(equalTo: bodyView.leadingAnchor, constant: 20),
-            bodyVStack.trailingAnchor.constraint(equalTo: bodyView.trailingAnchor, constant: -20),
-            
-          
-          
-            emailTextField.heightAnchor.constraint(equalToConstant: 50),
+            passwordTextField.topAnchor.constraint(equalTo: usernameTextField.bottomAnchor, constant: 10),
+            passwordTextField.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 20),
+            passwordTextField.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -20),
             passwordTextField.heightAnchor.constraint(equalToConstant: 50),
 
-        
-            logo.heightAnchor.constraint(equalToConstant: 50),
-
             
-            btnLogin.topAnchor.constraint(equalTo: bodyView.bottomAnchor, constant: 30),
-            btnLogin.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
-            btnLogin.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
-            btnLogin.heightAnchor.constraint(equalToConstant: 50),
-            
+            loginButton.topAnchor.constraint(equalTo: passwordTextField.bottomAnchor, constant: 20),
+            loginButton.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 20),
+            loginButton.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -20),
+            loginButton.heightAnchor.constraint(equalToConstant: 60),
         ])
-       
         
+        loginButton.addTarget(self, action: #selector(makeLogin), for: .touchUpInside)
+
     }
 
     
@@ -223,13 +129,153 @@ class SignIn: UIViewController {
     }
     
 
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-       setupLayouts()
+   
 
-        // Do any additional setup after loading the view.
+
+    @objc func makeLogin(){
+       sendPostRequest()
+    }
+    
+    
+    func sendPostRequest() {
+        
+        guard let usernameString = usernameTextField.text, !(usernameString.isEmpty) else {
+            let alert = UIAlertController(title: "Invalid username", message: "Please enter a valid username.", preferredStyle: .alert)
+            let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+            alert.addAction(okAction)
+            present(alert, animated: true, completion: nil)
+            return
+        }
+        guard let passwordString = passwordTextField.text, !(passwordString.isEmpty) else {
+            let alert = UIAlertController(title: "Invalid password", message: "Please enter a valid password.", preferredStyle: .alert)
+            let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+            alert.addAction(okAction)
+            present(alert, animated: true, completion: nil)
+            return
+        }
+        
+        
+        // Create the URL for your API endpoint
+        guard let url = URL(string: "https://fitmate-api.onrender.com/user/login") else {
+            print("Invalid URL")
+            return
+        }
+        
+        // Create the request object
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        
+        // Set the request body data, if needed
+        let parameters: [String: Any] = [
+            "username": usernameString,
+            "password": passwordString
+        ]
+        
+        do {
+            request.httpBody = try JSONSerialization.data(withJSONObject: parameters, options: [])
+        } catch {
+            print("Error encoding request body: \(error)")
+            return
+        }
+        
+        // Set the request headers, if needed
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        // Create the URLSession and data task
+        let session = URLSession.shared
+        let task = session.dataTask(with: request) { (data, response, error) in
+            if let error = error {
+                print("Error: \(error)")
+                return
+            }
+            
+            // Handle the response data, if needed
+            if let responseData = data {
+                // Parse and process the response data
+                do {
+                    if let json = try JSONSerialization.jsonObject(with: responseData, options: []) as? [String: Any],
+                        let status = json["status"] as? Int {
+                        print(status)
+                        if(status == 200){
+                            DispatchQueue.main.async {
+                                // Display an alert with the message
+                                let data = UserDefaults.standard
+                                data.set(1, forKey: "isAuth")
+                                
+                                let isFirstTime = Int(data.integer(forKey: "isFirstTime"))
+                                
+                                if(isFirstTime == 2)
+                                {
+                                    let tabBarController = UITabBarController()
+                                    
+                                    
+                                    
+                                    let home = UINavigationController(rootViewController: HomeScreen())
+                                    let schedule = UINavigationController(rootViewController: ScheduleView())
+                            //        let progress = UINavigationController(rootViewController: viewProgress())
+                            //        let profile = UINavigationController(rootViewController: viewProfile())
+                                    
+                                    home.title = "Home"
+                                    schedule.title = "Schedule"
+                            //        progress.title = "Progress"
+                            //        profile.title = "Profile"
+                                    
+                                    tabBarController.setViewControllers([home,schedule], animated: false)
+                                    
+                                    guard let items = tabBarController.tabBar.items else {
+                                        return
+                                    }
+                                    
+                                    let images = ["house","calendar","chart.xyaxis.line","person.crop.circle"]
+                                
+                                    for x in 0..<items.count {
+                                        items[x].image = UIImage(systemName: images[x])
+                                        items[x].badgeColor = UIColor.orange
+                                    }
+                                    
+                                    let tabBarAppearance = UITabBar.appearance()
+                                    tabBarAppearance.backgroundColor = .white
+                                    tabBarAppearance.tintColor = .orange
+                                    
+                                    tabBarController.modalPresentationStyle = .fullScreen
+                                    self.present(tabBarController, animated: false)
+                                    
+                                }
+                                else{
+//                                    let data = UserDefaults.standard
+//                                    data.set(2, forKey: "isFirstTime")
+                                    let vc = GenderSelectScreen()
+                                    self.navigationController?.pushViewController(vc, animated: true)
+                                }
+                            }
+                        }
+                        else{
+                            if let message = json["message"] as? String {
+                                DispatchQueue.main.async {
+                                                  // Display an alert with the message
+                                                  let alertController = UIAlertController(title: "Response", message: message, preferredStyle: .alert)
+                                                  let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                                                  alertController.addAction(okAction)
+                                                  self.present(alertController, animated: true, completion: nil)
+                                              }
+                            }
+                           
+                        }
+                      } else {
+                          print("Invalid response JSON or missing 'status' field")
+                      }
+                    
+                
+                    
+                    // Process the response JSON here
+                } catch {
+                    print("Error decoding response JSON: \(error)")
+                }
+            }
+        }
+        
+        // Start the data task
+        task.resume()
     }
 
 
