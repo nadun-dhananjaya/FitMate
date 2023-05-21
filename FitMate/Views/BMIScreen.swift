@@ -150,40 +150,10 @@ class BMIScreen: UIViewController {
     @objc func getNext() {
         
       
+        UserDefaults.standard.set(1, forKey: "isFirstTime")
         
-        let tabBarController = UITabBarController()
-        
-        
-        
-        let home = UINavigationController(rootViewController: HomeScreen())
-        let schedule = UINavigationController(rootViewController: ScheduleView())
-//        let progress = UINavigationController(rootViewController: viewProgress())
-//        let profile = UINavigationController(rootViewController: viewProfile())
-        
-        home.title = "Home"
-        schedule.title = "Schedule"
-//        progress.title = "Progress"
-//        profile.title = "Profile"
-        
-        tabBarController.setViewControllers([home,schedule], animated: false)
-        
-        guard let items = tabBarController.tabBar.items else {
-            return
-        }
-        
-        let images = ["house","calendar","chart.xyaxis.line","person.crop.circle"]
-    
-        for x in 0..<items.count {
-            items[x].image = UIImage(systemName: images[x])
-            items[x].badgeColor = UIColor.orange
-        }
-        
-        let tabBarAppearance = UITabBar.appearance()
-        tabBarAppearance.backgroundColor = .white
-        tabBarAppearance.tintColor = .orange
-        
-        tabBarController.modalPresentationStyle = .fullScreen
-        present(tabBarController, animated: false)
+        let vc = HomeScreen()
+        self.navigationController?.setViewControllers([vc], animated: true)
         
     }
 }

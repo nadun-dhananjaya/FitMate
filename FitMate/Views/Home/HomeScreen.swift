@@ -94,6 +94,9 @@ class HomeScreen: UIViewController {
             view.addSubview(imageView)
             view.addSubview(button)
             button.addTarget(self, action: #selector(getExerciseList), for: .touchUpInside)
+        
+            let completedDays = Float(UserDefaults.standard.integer(forKey: "completedDays"))
+            progressView.setProgress(completedDays/30, animated: true)
         }
         
         private func setupConstraints() {

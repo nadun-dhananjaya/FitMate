@@ -66,8 +66,29 @@ class SignIn: UIViewController {
         return button
     }()
     
+    
+    let signUpButton: UIButton = {
+        let button = UIButton(type: .roundedRect)
+        button.setTitle("Sign Up", for: .normal)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setTitleColor(.black, for: .normal) // Set text color to white
+        button.titleLabel?.font = .systemFont(ofSize: 16, weight: .semibold)
+        button.layer.cornerRadius = 10
+        return button
+    }()
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let isAuth = Int(UserDefaults.standard.integer(forKey: "isAuth"))
+        
+        if(isAuth == 2)
+        {
+            let vc = HomeScreen()
+            self.navigationController?.setViewControllers([vc], animated: true)
+        }
+        
         
         setupUI()
         setupConstraints()
@@ -82,6 +103,9 @@ class SignIn: UIViewController {
         view.addSubview(usernameTextField)
         view.addSubview(passwordTextField)
         view.addSubview(loginButton)
+
+        view.addSubview(signUpButton)
+
     }
     
     func setupConstraints() {
@@ -116,9 +140,16 @@ class SignIn: UIViewController {
             loginButton.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 20),
             loginButton.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -20),
             loginButton.heightAnchor.constraint(equalToConstant: 60),
+            
+            signUpButton.topAnchor.constraint(equalTo: loginButton.bottomAnchor, constant: 20),
+            signUpButton.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 20),
+            signUpButton.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -20),
+            signUpButton.heightAnchor.constraint(equalToConstant: 60),
         ])
         
         loginButton.addTarget(self, action: #selector(makeLogin), for: .touchUpInside)
+        signUpButton.addTarget(self, action: #selector(signUpScreen), for: .touchUpInside)
+
 
     }
 
@@ -129,7 +160,11 @@ class SignIn: UIViewController {
     }
     
 
-   
+    @objc func signUpScreen(){
+        let vc = SignUp()
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    
 
 
     @objc func makeLogin(){
@@ -208,6 +243,10 @@ class SignIn: UIViewController {
                                 
                                 let isFirstTime = Int(data.integer(forKey: "isFirstTime"))
                 
+                                data.set(username, forKey: "username")
+                                data.set(totalDays, forKey: "totalDays")
+                                data.set(completedDays, forKey: "completedDays")
+                          
                                 
                                 if(isFirstTime == 1 )
                                 {
@@ -218,11 +257,8 @@ class SignIn: UIViewController {
                           
                                     
 
-                                    data.set(1, forKey: "isFirstTime")
                                     
-                                    data.set(username, forKey: "username")
-                                    data.set(totalDays, forKey: "totalDays")
-                                    data.set(completedDays, forKey: "completedDays")
+                                 
                                 
                                     let vc = GenderSelectScreen()
                                     self.navigationController?.pushViewController(vc, animated: true)

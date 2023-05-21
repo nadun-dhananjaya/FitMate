@@ -89,6 +89,9 @@ class ExerciseFinishView: UIViewController {
     
     
     @objc func getExerciseList() {
+        let completedDays = Float(UserDefaults.standard.integer(forKey: "completedDays"))
+        UserDefaults.standard.set(completedDays+1, forKey: "completedDays")
+        
         let vc = HomeScreen()
         self.navigationController?.setViewControllers([vc], animated: true)
     }
