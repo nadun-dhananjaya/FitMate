@@ -11,82 +11,129 @@ class HomeScreen: UIViewController {
 
     private let titleLabel: UILabel = {
            let label = UILabel()
-           label.text = "Welcome to Fitmate"
+           label.text = "Welcome"
            label.font = UIFont.boldSystemFont(ofSize: 24)
-           label.textAlignment = .center
            label.translatesAutoresizingMaskIntoConstraints = false
            return label
        }()
        
-       private let descriptionLabel: UILabel = {
+       private let subtitleLabel: UILabel = {
            let label = UILabel()
-           label.text = "Get fit and stay healthy"
-           label.font = UIFont.systemFont(ofSize: 18)
-           label.textAlignment = .center
+           label.text = ""
+           label.font = UIFont.systemFont(ofSize: 16)
            label.translatesAutoresizingMaskIntoConstraints = false
            return label
        }()
        
-       private let startButton: UIButton = {
-           let button = UIButton()
-           button.setTitle("See Today Workout", for: .normal)
-           button.setTitleColor(.white, for: .normal)
-           button.backgroundColor = .orange
-           button.layer.cornerRadius = 8
-           button.translatesAutoresizingMaskIntoConstraints = false
-           return button
+       private let panelView: UIView = {
+           let view = UIView()
+           view.backgroundColor = .systemOrange
+           view.layer.cornerRadius = 10
+           view.translatesAutoresizingMaskIntoConstraints = false
+           return view
        }()
        
-    let logo: UIImageView = {
-        let imageView = UIImageView(image: UIImage(named: "fitnessApp"))
-        imageView.contentMode = .scaleAspectFit
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        return imageView
-    }()
-    
-    
-       override func viewDidLoad() {
-           super.viewDidLoad()
-           view.backgroundColor = .white
-           setupConstraints()
-       }
+       private let progressLabel: UILabel = {
+           let label = UILabel()
+           label.text = "Your progress"
+           label.font = UIFont.boldSystemFont(ofSize: 20)
+           label.textColor = .white
+           label.translatesAutoresizingMaskIntoConstraints = false
+           return label
+       }()
        
-    
-    
-       private func setupConstraints() {
-           view.addSubview(titleLabel)
-           view.addSubview(descriptionLabel)
-           view.addSubview(startButton)
-           
-           let imageView = UIImageView(image: UIImage(named: "fitnessApp"))
+       private let progressView: UIProgressView = {
+           let progressView = UIProgressView(progressViewStyle: .bar)
+           progressView.setProgress(0/30, animated: true)
+           progressView.trackTintColor = .white
+           progressView.progressTintColor = UIColor(red: 69/255, green: 90/255, blue: 100/255, alpha: 1.0)
+           progressView.translatesAutoresizingMaskIntoConstraints = false
+
+           return progressView
+       }()
+       
+     
+       
+       private let imageView: UIImageView = {
+           let imageView = UIImageView()
+           imageView.image = UIImage(named: "fitnessApp")
            imageView.contentMode = .scaleAspectFit
            imageView.translatesAutoresizingMaskIntoConstraints = false
-           view.addSubview(imageView)
-           
-           
-           NSLayoutConstraint.activate([
-               titleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-               titleLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 100),
-               
-               descriptionLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-               descriptionLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 20),
-               
-               imageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-               imageView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-               imageView.widthAnchor.constraint(equalToConstant: 200),
-               imageView.heightAnchor.constraint(equalToConstant: 200),
-               
-               startButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-               startButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -150),
-               startButton.widthAnchor.constraint(equalToConstant: 200),
-               startButton.heightAnchor.constraint(equalToConstant: 50)
-           ])
-           
-           startButton.addTarget(self, action: #selector(getExerciseList), for: .touchUpInside)
+           return imageView
+       }()
+       
+       private let button: UIButton = {
+           let button = UIButton(type: .system)
+           button.setTitle("Start Workout", for: .normal)
+           button.translatesAutoresizingMaskIntoConstraints = false
+           button.backgroundColor = .orange
+           button.setTitleColor(.white, for: .normal) // Set text color to white
+           button.titleLabel?.font = .systemFont(ofSize: 16, weight: .semibold)
+           button.layer.cornerRadius = 10
+         
+           return button
+       }()
 
-       }
+
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        view.backgroundColor = .white
+               
+               setupUI()
+               setupConstraints()
+    }
     
+    private func setupUI() {
+            view.addSubview(titleLabel)
+            view.addSubview(subtitleLabel)
+            view.addSubview(panelView)
+            panelView.addSubview(progressLabel)
+            panelView.addSubview(progressView)
+            view.addSubview(imageView)
+            view.addSubview(button)
+            button.addTarget(self, action: #selector(getExerciseList), for: .touchUpInside)
+        }
+        
+        private func setupConstraints() {
+            let safeArea = view.safeAreaLayoutGuide
+            
+            NSLayoutConstraint.activate([
+                titleLabel.topAnchor.constraint(equalTo: safeArea.topAnchor, constant: 20),
+                titleLabel.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 20),
+                
+                subtitleLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 8),
+                subtitleLabel.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 20),
+                
+                panelView.topAnchor.constraint(equalTo: subtitleLabel.bottomAnchor, constant: 20),
+                panelView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor,constant: 20),
+                panelView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor,constant: -20),
+
+                
+                progressLabel.topAnchor.constraint(equalTo: panelView.topAnchor, constant: 30),
+                progressLabel.leadingAnchor.constraint(equalTo: panelView.leadingAnchor, constant: 20),
+                
+
+            
+                progressView.leadingAnchor.constraint(equalTo: panelView.leadingAnchor, constant: 16),
+                progressView.trailingAnchor.constraint(equalTo: panelView.trailingAnchor, constant: -16),
+                progressView.topAnchor.constraint(equalTo: progressLabel.bottomAnchor, constant: 36),
+                progressView.centerYAnchor.constraint(equalTo: panelView.centerYAnchor),
+                progressView.heightAnchor.constraint(equalToConstant: 10),
+                
+                imageView.topAnchor.constraint(equalTo: panelView.bottomAnchor, constant: 80),
+                imageView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor),
+                imageView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor),
+                imageView.heightAnchor.constraint(equalToConstant: 200),
+                
+                button.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -50),
+                button.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor,constant: 20),
+                button.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor,constant: -20),
+                button.heightAnchor.constraint(equalToConstant: 60),
+
+            ])
+        }
     @objc func getExerciseList() {
         let vc = ExerciseListScreen()
         navigationController?.pushViewController(vc, animated: true)

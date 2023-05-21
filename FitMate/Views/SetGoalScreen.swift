@@ -10,196 +10,136 @@ import SwiftKeychainWrapper
 
 class SetGoalScreen: UIViewController {
 
-    //Var
-    
     var goal : String = ""
-    
-    //UI Comps
-    
+       
+    let levelButtonSelectedColor = UIColor(hexString: "#fff2d9")
+
+  
     let progressView : UIProgressView = {
         let progressView = UIProgressView(progressViewStyle: .bar)
-        progressView.setProgress(6/6, animated: true)
+        progressView.setProgress(2/6, animated: true)
         progressView.trackTintColor = UIColor(red: 217/255, green: 217/255, blue: 217/255, alpha: 1.0)
         progressView.progressTintColor = UIColor(red: 69/255, green: 90/255, blue: 100/255, alpha: 1.0)
         return progressView
     }()
     
-    let stepCountLabel : UILabel = {
+    let chooseLevelLabel: UILabel = {
         let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = .systemFont(ofSize: 14, weight: .semibold)
-        label.textColor = UIColor(red: 140/255, green: 140/255, blue: 140/255, alpha: 1.0)
-        label.text = "Step 5/6"
+        label.text = "Select Your Goal"
         label.textAlignment = .center
+        label.font = UIFont.boldSystemFont(ofSize: 20)
+        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-    
-    let titleLabel : UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = .systemFont(ofSize: 26, weight: .thin)
-        label.text = "What's your goal ? "
-        label.textAlignment = .center
-        return label
-    }()
-    
-   
-    
-    let image : UIImageView = {
-        let imageView = UIImageView(image: UIImage(named: "goal"))
-        imageView.contentMode = .scaleAspectFit
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        return imageView
-    }()
-    
-    let IwanttoLabel : UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = .systemFont(ofSize: 36, weight: .thin)
-        label.text = "I want to"
-        label.textAlignment = .center
-        return label
-    }()
-    
-    let buttonLoose : UIButton = {
-        let button = UIButton()
+
+    let weightLossButton: UIButton = {
+        let button = UIButton(type: .custom)
+        button.setImage(UIImage(named: "WeightLoss"), for: .normal)
+        button.titleLabel?.textAlignment = .center
+        button.imageView?.contentMode = .scaleAspectFit
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("Loose weight", for: .normal)
-        button.titleLabel?.font = .systemFont(ofSize: 26, weight: .light)
-        button.layer.borderWidth = 1.0
-        button.backgroundColor = .white
-        button.setTitleColor(.black, for: .normal)
-        button.layer.cornerRadius = 10
         return button
     }()
-    
-    let buttonGain : UIButton = {
-        let button = UIButton()
+
+    let muscleGainButton: UIButton = {
+        let button = UIButton(type: .custom)
+        button.setImage(UIImage(named: "MuscleGain"), for: .normal)
+        button.titleLabel?.textAlignment = .center
+        button.imageView?.contentMode = .scaleAspectFit
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("Gain muscles", for: .normal)
-        button.titleLabel?.font = .systemFont(ofSize: 26, weight: .light)
-        button.layer.borderWidth = 1.0
-        button.backgroundColor = .white
-        button.setTitleColor(.black, for: .normal)
-        button.layer.cornerRadius = 10
         return button
     }()
-    
-    let vStack : UIStackView = {
-        let stack = UIStackView()
-        stack.translatesAutoresizingMaskIntoConstraints = false
-        stack.axis = .vertical
-        stack.spacing = 10
-        return stack
-    }()
-    
-    let buttonContinue : UIButton = {
-        let button = UIButton()
-        button.translatesAutoresizingMaskIntoConstraints = false
+
+
+
+    let nextButton: UIButton = {
+        let button = UIButton(type: .roundedRect)
         button.setTitle("Next", for: .normal)
-        button.titleLabel?.font = .systemFont(ofSize: 20, weight: .semibold)
-        button.backgroundColor = UIColor(red: 69/255, green: 90/255, blue: 100/255, alpha: 1.0)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.backgroundColor = .orange
+        button.setTitleColor(.white, for: .normal)
+        button.titleLabel?.font = .systemFont(ofSize: 16, weight: .semibold)
         button.layer.cornerRadius = 10
         return button
     }()
-    
-    func setDB(){
-        let saveSuccessful: Bool = KeychainWrapper.standard.set(goal, forKey: "goal")
-    }
-    
-   
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         setupUI()
+        setupConstraints()
     }
     
-    func setupUI(){
+    func setupUI() {
         view.backgroundColor = .white
         view.addSubview(progressView)
-        view.addSubview(stepCountLabel)
-        view.addSubview(titleLabel)
-        view.addSubview(image)
-       view.addSubview(IwanttoLabel)
-        
-        vStack.addArrangedSubview(buttonLoose)
-        vStack.addArrangedSubview(buttonGain)
-        
-        view.addSubview(vStack)
-        view.addSubview(buttonContinue)
+        view.addSubview(chooseLevelLabel)
+        view.addSubview(weightLossButton)
+        view.addSubview(muscleGainButton)
+        view.addSubview(nextButton)
+        weightLossButton.addTarget(self, action: #selector(weightLossButtonTapped), for: .touchUpInside)
+        muscleGainButton.addTarget(self, action: #selector(muscleGainButtonTapped), for: .touchUpInside)
+        nextButton.addTarget(self, action: #selector(getNext), for: .touchUpInside)
+
+        weightLossButton.backgroundColor = .clear
+        muscleGainButton.backgroundColor = .clear
         
         progressView.frame = CGRect(x: (view.frame.size.width)/8, y: 100, width: view.frame.size.width-100, height: 20)
-        
-        //Button actions
-        
-        buttonLoose.addTarget(self, action: #selector(btnL), for: .touchUpInside)
-        buttonGain.addTarget(self, action: #selector(btnG), for: .touchUpInside)
-        buttonContinue.addTarget(self, action: #selector(getNext), for: .touchUpInside)
 
-        
-        //Constraints
+    }
+
+    func setupConstraints() {
+        let safeArea = view.safeAreaLayoutGuide
         
         NSLayoutConstraint.activate([
-            stepCountLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
-            stepCountLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-            stepCountLabel.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+         
+            progressView.topAnchor.constraint(equalTo: safeArea.topAnchor, constant: 50),
+            progressView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 20),
+            progressView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -20),
             
-            titleLabel.topAnchor.constraint(equalTo: stepCountLabel.bottomAnchor, constant: 20),
-            titleLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
-            titleLabel.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
-            titleLabel.heightAnchor.constraint(equalToConstant: 40),
-              
-            image.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 20),
-            image.heightAnchor.constraint(equalToConstant: 240),
-            image.widthAnchor.constraint(equalToConstant: 240),
-            image.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            chooseLevelLabel.topAnchor.constraint(equalTo: progressView.bottomAnchor, constant: 50),
+            chooseLevelLabel.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor),
+            chooseLevelLabel.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor),
             
-              
-            IwanttoLabel.topAnchor.constraint(equalTo: image.bottomAnchor, constant: 20),
-            IwanttoLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-            IwanttoLabel.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -180),
-            IwanttoLabel.heightAnchor.constraint(equalToConstant: 120),
             
-              
-            vStack.topAnchor.constraint(equalTo: image.bottomAnchor, constant: 35),
-            vStack.leadingAnchor.constraint(equalTo: IwanttoLabel.trailingAnchor, constant: -20),
-            vStack.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -40),
+            weightLossButton.topAnchor.constraint(equalTo: chooseLevelLabel.bottomAnchor, constant: 50),
+            weightLossButton.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor),
+            weightLossButton.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor),
+            weightLossButton.heightAnchor.constraint(equalToConstant: 200),
+                        
+            muscleGainButton.topAnchor.constraint(equalTo: weightLossButton.bottomAnchor),
+            muscleGainButton.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor),
+            muscleGainButton.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor),
+            muscleGainButton.heightAnchor.constraint(equalToConstant: 200),
+                
+    
             
-            buttonContinue.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -40),
-            buttonContinue.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            buttonContinue.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
-            buttonContinue.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
-            buttonContinue.heightAnchor.constraint(equalToConstant: 55),
+            
+            nextButton.topAnchor.constraint(equalTo: view.bottomAnchor, constant: -150),
+            nextButton.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 20),
+            nextButton.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -20),
+            nextButton.heightAnchor.constraint(equalToConstant: 60),
         ])
     }
     
-    @objc func btnL(){
-        buttonLoose.backgroundColor = UIColor(red: 255/255, green: 114/255, blue: 94/255, alpha: 1.0)
-        buttonGain.backgroundColor = .white
-        
-        buttonLoose.setTitleColor(.white, for: .normal)
-        buttonGain.setTitleColor(.black, for: .normal)
-        
-        buttonLoose.layer.borderWidth = 0
-        buttonGain.layer.borderWidth = 1
-        
-        goal = "Loose weight"
+    
+    
+    @objc func weightLossButtonTapped() {
+        weightLossButton.backgroundColor = levelButtonSelectedColor
+        muscleGainButton.backgroundColor = .clear
+        goal = "Weight Loss"
+    }
+
+    @objc func muscleGainButtonTapped() {
+        muscleGainButton.backgroundColor = levelButtonSelectedColor
+        weightLossButton.backgroundColor = .clear
+        goal = "Muscle Gain"
     }
     
-    @objc func btnG(){
-        buttonLoose.backgroundColor = .white
-        buttonGain.backgroundColor = UIColor(red: 255/255, green: 114/255, blue: 94/255, alpha: 1.0)
-        
-        buttonLoose.setTitleColor(.black, for: .normal)
-        buttonGain.setTitleColor(.white, for: .normal)
-        
-        buttonLoose.layer.borderWidth = 1
-        buttonGain.layer.borderWidth = 0
-        
-        goal = "Gain muscle"
-    }
-    
-    
+ 
+ 
+
    
     @objc func getNext(){
         

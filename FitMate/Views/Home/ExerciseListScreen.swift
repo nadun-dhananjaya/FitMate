@@ -18,11 +18,13 @@ class ExerciseListScreen: UIViewController {
     
     
     let buttonContinue : UIButton = {
-        let button = UIButton()
-        button.translatesAutoresizingMaskIntoConstraints = false
+    
+        let button = UIButton(type: .roundedRect)
         button.setTitle("Start Workout", for: .normal)
-        button.titleLabel?.font = .systemFont(ofSize: 20, weight: .semibold)
-        button.backgroundColor = UIColor(red: 69/255, green: 90/255, blue: 100/255, alpha: 1.0)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.backgroundColor = .orange
+        button.setTitleColor(.white, for: .normal)
+        button.titleLabel?.font = .systemFont(ofSize: 16, weight: .semibold)
         button.layer.cornerRadius = 10
         return button
     }()
@@ -30,9 +32,10 @@ class ExerciseListScreen: UIViewController {
     
     
     func setLayouts(){
+        
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
-        layout.itemSize = CGSize(width: (view.frame.width) - 4, height: 100)
+        layout.itemSize = CGSize(width: (view.frame.width) - 20, height: 120)
         layout.minimumLineSpacing = 8
         layout.minimumInteritemSpacing = 1
         
@@ -47,18 +50,21 @@ class ExerciseListScreen: UIViewController {
         collectionView.dataSource = self
         collectionView.delegate = self
         collectionView.frame = view.bounds
-        collectionView.backgroundColor =  .white
+        collectionView.backgroundColor = UIColor(hexString: "#e6e6e6")
        
         view.addSubview(collectionView)
         view.addSubview(buttonContinue)
-        
+        view.backgroundColor = UIColor(hexString: "#e6e6e6")
+
         NSLayoutConstraint.activate([
                   // ...
 
             buttonContinue.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             buttonContinue.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
             buttonContinue.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -16),
-            buttonContinue.heightAnchor.constraint(equalToConstant: 50)
+            buttonContinue.heightAnchor.constraint(equalToConstant: 60)
+            
+            
               ])
         buttonContinue.addTarget(self, action: #selector(getExercise), for: .touchUpInside)
 

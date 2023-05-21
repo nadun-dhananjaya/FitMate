@@ -141,12 +141,6 @@ class ViewExercise:  UIViewController, UIPageViewControllerDataSource, UIPageVie
             }
         }
         
-//        // Set the first view controller and update the page control
-//        if let initialViewController = viewControllers.first {
-//            pageViewController.setViewControllers([initialViewController], direction: .forward, animated: true, completion: nil)
-//            pageControl.currentPage = 0
-//        }
-        
         // Set the first view controller and update the page control
            if let initialViewController = viewControllers.first {
                pageViewController.setViewControllers([initialViewController], direction: .forward, animated: true) { [weak self] _ in
@@ -214,9 +208,11 @@ class ViewExercise:  UIViewController, UIPageViewControllerDataSource, UIPageVie
             
             let imageView = UIImageView()
             imageView.load(urlString: exerciseList[index].imageurl)
-            imageView.contentMode = .scaleAspectFit
+            imageView.contentMode = .scaleAspectFill
             imageView.translatesAutoresizingMaskIntoConstraints = false
             viewController.view.addSubview(imageView)
+            
+            
             
             let webView = WKWebView(frame: .zero)
             webView.translatesAutoresizingMaskIntoConstraints = false
@@ -226,7 +222,7 @@ class ViewExercise:  UIViewController, UIPageViewControllerDataSource, UIPageVie
             stopwatchLabel = UILabel()
 
             stopwatchLabel.text = "00:00:00" // Initial countdown value
-            stopwatchLabel.font = UIFont.systemFont(ofSize: 24)
+            stopwatchLabel.font = UIFont.systemFont(ofSize: 50)
             stopwatchLabel.textAlignment = .center
             stopwatchLabel.translatesAutoresizingMaskIntoConstraints = false
             stopwatchLabel.textColor = .black
@@ -244,8 +240,14 @@ class ViewExercise:  UIViewController, UIPageViewControllerDataSource, UIPageVie
             nextButton.setTitle("Next", for: .normal)
             nextButton.addTarget(self, action: #selector(nextButtonTapped), for: .touchUpInside)
             nextButton.translatesAutoresizingMaskIntoConstraints = false
+            nextButton.backgroundColor = .orange
+            nextButton.setTitleColor(.white, for: .normal)
+            nextButton.titleLabel?.font = .systemFont(ofSize: 16, weight: .semibold)
+            nextButton.layer.cornerRadius = 10
             viewController.view.addSubview(nextButton)
             
+            
+         
             startStopwatch()
             
             
@@ -255,13 +257,13 @@ class ViewExercise:  UIViewController, UIPageViewControllerDataSource, UIPageVie
                 titleLabel.trailingAnchor.constraint(equalTo: viewController.view.trailingAnchor),
                 
                 imageView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 20),
-                imageView.leadingAnchor.constraint(equalTo: viewController.view.leadingAnchor),
-                imageView.trailingAnchor.constraint(equalTo: viewController.view.trailingAnchor),
+                imageView.leadingAnchor.constraint(equalTo: viewController.view.leadingAnchor,constant: 20),
+                imageView.trailingAnchor.constraint(equalTo: viewController.view.trailingAnchor, constant: -20),
                 imageView.heightAnchor.constraint(equalToConstant: 200),
                 
                 webView.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 20),
-                webView.leadingAnchor.constraint(equalTo: viewController.view.leadingAnchor),
-                webView.trailingAnchor.constraint(equalTo: viewController.view.trailingAnchor),
+                webView.leadingAnchor.constraint(equalTo: viewController.view.leadingAnchor, constant: 20),
+                webView.trailingAnchor.constraint(equalTo: viewController.view.trailingAnchor, constant: -20),
                 webView.heightAnchor.constraint(equalToConstant: 200),
                 
                 stopwatchLabel.topAnchor.constraint(equalTo: webView.bottomAnchor, constant: 60),
@@ -271,7 +273,10 @@ class ViewExercise:  UIViewController, UIPageViewControllerDataSource, UIPageVie
     
                 
                 nextButton.centerXAnchor.constraint(equalTo: viewController.view.centerXAnchor),
-                nextButton.bottomAnchor.constraint(equalTo: viewController.view.bottomAnchor, constant: -50)
+                nextButton.bottomAnchor.constraint(equalTo: viewController.view.bottomAnchor, constant: -50),
+                nextButton.leadingAnchor.constraint(equalTo: viewController.view.leadingAnchor,constant: 20),
+                nextButton.trailingAnchor.constraint(equalTo: viewController.view.trailingAnchor, constant: -20),
+                nextButton.heightAnchor.constraint(equalToConstant: 60),
             ])
             
            

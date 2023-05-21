@@ -21,6 +21,8 @@ class ExerciseComponent: UICollectionViewCell {
             let imageView = UIImageView()
             imageView.contentMode = .scaleToFill
             imageView.translatesAutoresizingMaskIntoConstraints = false
+            imageView.layer.cornerRadius = 10
+            imageView.clipsToBounds = true
             return imageView;
         }()
     
@@ -53,9 +55,10 @@ class ExerciseComponent: UICollectionViewCell {
             contentView.addSubview(exerciseName)
             contentView.addSubview(repCount)
             contentView.clipsToBounds = true
-            exerciseImage.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true
-            exerciseImage.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
-            exerciseImage.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
+            contentView.layer.cornerRadius = 10
+            
+            exerciseImage.topAnchor.constraint(equalTo: contentView.topAnchor,constant: 10).isActive = true
+            exerciseImage.leadingAnchor.constraint(equalTo: contentView.leadingAnchor,constant: 10).isActive = true
             exerciseImage.heightAnchor.constraint(equalToConstant: 100).isActive = true
             exerciseImage.widthAnchor.constraint(equalToConstant: 100).isActive = true
 

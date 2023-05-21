@@ -78,8 +78,9 @@ class ExerciseFinishView: UIViewController {
                
                startButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
                startButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -150),
-               startButton.widthAnchor.constraint(equalToConstant: 200),
-               startButton.heightAnchor.constraint(equalToConstant: 50)
+               startButton.heightAnchor.constraint(equalToConstant: 50),
+               startButton.leadingAnchor.constraint(equalTo: view.leadingAnchor,constant: 20),
+               startButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
            ])
            
            startButton.addTarget(self, action: #selector(getExerciseList), for: .touchUpInside)
@@ -88,38 +89,7 @@ class ExerciseFinishView: UIViewController {
     
     
     @objc func getExerciseList() {
-        let tabBarController = UITabBarController()
-        
-        
-        
-        let home = UINavigationController(rootViewController: HomeScreen())
-        let schedule = UINavigationController(rootViewController: ScheduleView())
-//        let progress = UINavigationController(rootViewController: viewProgress())
-//        let profile = UINavigationController(rootViewController: viewProfile())
-        
-        home.title = "Home"
-        schedule.title = "Schedule"
-//        progress.title = "Progress"
-//        profile.title = "Profile"
-        
-        tabBarController.setViewControllers([home,schedule], animated: false)
-        
-        guard let items = tabBarController.tabBar.items else {
-            return
-        }
-        
-        let images = ["house","calendar","chart.xyaxis.line","person.crop.circle"]
-    
-        for x in 0..<items.count {
-            items[x].image = UIImage(systemName: images[x])
-            items[x].badgeColor = UIColor.orange
-        }
-        
-        let tabBarAppearance = UITabBar.appearance()
-        tabBarAppearance.backgroundColor = .white
-        tabBarAppearance.tintColor = .orange
-        
-        tabBarController.modalPresentationStyle = .fullScreen
-        present(tabBarController, animated: false)
+        let vc = HomeScreen()
+        self.navigationController?.setViewControllers([vc], animated: true)
     }
 }

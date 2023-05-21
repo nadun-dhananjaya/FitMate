@@ -194,7 +194,11 @@ class SignIn: UIViewController {
                 // Parse and process the response data
                 do {
                     if let json = try JSONSerialization.jsonObject(with: responseData, options: []) as? [String: Any],
-                        let status = json["status"] as? Int {
+                        let status = json["status"] as? Int ,
+                        let data = json["data"] as? [String: Any],
+                        let username = data["username"] as? String,
+                        let totalDays = data["totalDays"] as? Int,
+                        let completedDays = data["completedDays"] as? Int {
                         print(status)
                         if(status == 200){
                             DispatchQueue.main.async {
@@ -203,47 +207,23 @@ class SignIn: UIViewController {
                                 data.set(1, forKey: "isAuth")
                                 
                                 let isFirstTime = Int(data.integer(forKey: "isFirstTime"))
+                
                                 
-                                if(isFirstTime == 2)
+                                if(isFirstTime == 1 )
                                 {
-                                    let tabBarController = UITabBarController()
-                                    
-                                    
-                                    
-                                    let home = UINavigationController(rootViewController: HomeScreen())
-                                    let schedule = UINavigationController(rootViewController: ScheduleView())
-                            //        let progress = UINavigationController(rootViewController: viewProgress())
-                            //        let profile = UINavigationController(rootViewController: viewProfile())
-                                    
-                                    home.title = "Home"
-                                    schedule.title = "Schedule"
-                            //        progress.title = "Progress"
-                            //        profile.title = "Profile"
-                                    
-                                    tabBarController.setViewControllers([home,schedule], animated: false)
-                                    
-                                    guard let items = tabBarController.tabBar.items else {
-                                        return
-                                    }
-                                    
-                                    let images = ["house","calendar","chart.xyaxis.line","person.crop.circle"]
-                                
-                                    for x in 0..<items.count {
-                                        items[x].image = UIImage(systemName: images[x])
-                                        items[x].badgeColor = UIColor.orange
-                                    }
-                                    
-                                    let tabBarAppearance = UITabBar.appearance()
-                                    tabBarAppearance.backgroundColor = .white
-                                    tabBarAppearance.tintColor = .orange
-                                    
-                                    tabBarController.modalPresentationStyle = .fullScreen
-                                    self.present(tabBarController, animated: false)
-                                    
+                                    let vc = HomeScreen()
+                                    self.navigationController?.setViewControllers([vc], animated: true)
                                 }
                                 else{
-//                                    let data = UserDefaults.standard
-//                                    data.set(2, forKey: "isFirstTime")
+                          
+                                    
+
+                                    data.set(1, forKey: "isFirstTime")
+                                    
+                                    data.set(username, forKey: "username")
+                                    data.set(totalDays, forKey: "totalDays")
+                                    data.set(completedDays, forKey: "completedDays")
+                                
                                     let vc = GenderSelectScreen()
                                     self.navigationController?.pushViewController(vc, animated: true)
                                 }
